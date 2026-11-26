@@ -1,0 +1,5 @@
+---
+import Entries from '../../layouts/Entries.astro'
+import { projects } from '../../data/site'
+---
+<Entries title="Projetos e protótipos" summary="Conheça os protótipos e as linhas de pesquisa aplicada do LABEM." entries={projects} base="projetos" filters={[{key:"category",label:"Categoria"},{key:"year",label:"Ano"},{key:"status",label:"Status"}]} />

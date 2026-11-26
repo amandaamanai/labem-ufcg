@@ -1,0 +1,19 @@
+---
+import Inner from './Inner.astro'
+import EntryCard from '../components/EntryCard.astro'
+import Collection from '../components/Collection.astro'
+import { institution } from '../data/site'
+import type { Entry } from '../data/site'
+import { url } from '../utils/urls'
+const { title, summary, entries, base, search = false, filters = [] } = Astro.props as {
+  title: string; summary: string; entries: Entry[]; base: string; search?: boolean;
+  filters?: { key: 'category' | 'year' | 'status'; label: string }[]
+}
+const fields = filters.map(field => ({
+  ...field, options: [...new Set(entries.map(entry => entry[field.key]).filter((value): value is string => Boolean(value)))].sort(),
+})).filter(field => field.options.length > 1)
+---
+<Inner {title} {summary}>
+  {base === 'noticias' && <div class="actions list-actions"><a class="button dark-outline" href={url('eventos/')}>Agenda de eventos</a><a class="button dark-outline" href={institution.instagram}>Instagram · @labemufcg</a></div>}
+  <Collection {search} {fields}><div class="cards">{entries.map(entry => <EntryCard {entry} {base} />)}</div></Collection>
+</Inner>

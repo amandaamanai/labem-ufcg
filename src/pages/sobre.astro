@@ -1,0 +1,16 @@
+---
+import Inner from '../layouts/Inner.astro'
+import Timeline from '../components/Timeline.astro'
+import Sections from '../components/Sections.astro'
+import { photos } from '../data/site'
+import { url } from '../utils/urls'
+---
+<Inner title="Sobre o LABEM" summary="Engenharia de motocicletas, formação acadêmica e pesquisa em Campina Grande desde 2012." photo={photos.team}>
+  <Sections sections={[
+    { title: 'Engenharia na UFCG', text: 'O LABEM nasceu na Engenharia Mecânica da Universidade Federal de Campina Grande. A equipe reúne estudantes de Engenharia Mecânica, Engenharia Elétrica, Engenharia de Produção, Design e outras áreas para pesquisar e desenvolver motocicletas de competição.' },
+    { id: 'proposito', title: 'Propósito e objetivos', text: 'O laboratório busca formar estudantes por meio de um projeto real de engenharia. O desenvolvimento combina simulação, prototipagem e testes experimentais, com atenção a desempenho, eficiência, segurança e trabalho em equipe.' },
+    { id: 'estrutura', title: 'Como nos organizamos', text: 'Estrutura, Powertrain, Elétrica, Marketing, Extensão e Competição dividem responsabilidades e integram suas entregas em cada ciclo de desenvolvimento.' },
+  ]} />
+  <div class="actions list-actions"><a class="button" href={url('equipe/')}>Equipe e orientação</a><a class="button dark-outline" href={url('galeria/')}>Galeria</a></div>
+  <section id="historia" class="content-section"><h2>Linha do tempo</h2><Timeline /></section>
+</Inner>

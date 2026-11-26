@@ -1,0 +1,17 @@
+---
+import type { Entry } from '../data/site'
+import { url } from '../utils/urls'
+import Photo from './Photo.astro'
+const { entry, base } = Astro.props as { entry: Entry; base: string }
+---
+<article class="entry-card" data-category={entry.category} data-year={entry.year} data-status={entry.status}>
+  <a class="card-link" href={url(`${base}/${entry.slug}/`)}>
+    {entry.photo && <Photo photo={entry.photo} />}
+    <div class="card-body">
+      <p class="eyebrow">{entry.category}{entry.year && ` · ${entry.year}`}</p>
+      <h3>{entry.title}</h3>
+      <p>{entry.summary}</p>
+      {entry.status && <p class="meta">{entry.status}</p>}
+    </div>
+  </a>
+</article>

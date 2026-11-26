@@ -1,0 +1,15 @@
+---
+import Inner from '../layouts/Inner.astro'
+import Collection from '../components/Collection.astro'
+import { photos, team } from '../data/site'
+import { url } from '../utils/urls'
+const fields = [
+  { key: 'period', label: 'Período', options: [...new Set(team.map(item => item.period))] },
+  { key: 'area', label: 'Área', options: [...new Set(team.map(item => item.area))] },
+  { key: 'role', label: 'Função', options: [...new Set(team.map(item => item.role))] },
+]
+---
+<Inner title="Equipe Galo de Campina" summary="Estudantes e docentes de diferentes áreas desenvolvem um projeto de engenharia em comum na UFCG." photo={photos.team}>
+  <section class="content-section"><h2>Orientação e extensão</h2><Collection {fields}><ul class="records">{team.map(item => <li data-area={item.area} data-period={item.period} data-role={item.role}><p class="eyebrow">{item.area} · {item.period}</p><h3>{item.name}</h3><p>{item.role}</p></li>)}</ul></Collection></section>
+  <div class="actions"><a class="button" href={url('faca-parte/')}>Faça parte</a><a class="button dark-outline" href={url('engenharia/')}>Conheça as frentes de trabalho</a></div>
+</Inner>

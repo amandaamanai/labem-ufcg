@@ -1,0 +1,9 @@
+---
+import Detail from '../../layouts/Detail.astro'
+import { news } from '../../data/site'
+export function getStaticPaths() {
+  return news.map(entry => ({ params: { slug: entry.slug }, props: { entry } }))
+}
+const { entry } = Astro.props
+---
+<Detail {entry} entries={news} base="noticias" label="Notícias" share />

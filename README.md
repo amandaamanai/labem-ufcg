@@ -1,0 +1,42 @@
+# LABEM UFCG
+
+Portal do Laboratório de Engenharia da Motocicleta e da equipe Galo de Campina da Universidade Federal de Campina Grande. O projeto usa Astro 5, TypeScript e CSS, com páginas geradas no build e interações executadas no navegador.
+
+## Rodar localmente
+
+Requer Node.js 22.12 ou superior e npm.
+
+```sh
+npm ci
+npm run dev
+```
+
+Abra o endereço informado pelo Astro. Em um ambiente sem permissão para gravar nas configurações do usuário, defina `ASTRO_TELEMETRY_DISABLED=1` antes do comando.
+
+```sh
+npm run check
+npm run build
+npm run preview
+```
+
+O resultado está em `dist/`. Use um servidor HTTP para visualizá-lo.
+
+## Estrutura
+
+| Caminho | Conteúdo |
+| --- | --- |
+| `src/data/site.ts` | Navegação, banners, dados institucionais, notícias, projetos, subsistemas e demais coleções |
+| `src/pages/` | Páginas e rotas dinâmicas geradas estaticamente a partir das coleções |
+| `src/components/` e `src/layouts/` | Componentes e layouts compartilhados |
+| `src/styles/site.css` | Identidade, tipografia, layouts e regras responsivas |
+| `src/ui.ts` | Menu móvel, filtros, galeria, carrossel, compartilhamento e contagem regressiva |
+| `public/images/` | Fotografias WebP e marca do LABEM |
+| `.github/workflows/deploy.yml` | Verificação, build e publicação no GitHub Pages |
+
+Leia [Manual de edição](MANUAL_DE_EDICAO.md), [Manual de publicação](MANUAL_DE_PUBLICACAO.md) e [Sistema de design](DESIGN_SYSTEM.md).
+
+## Conteúdo para revisar
+
+O site usa imagens extraídas das apresentações do LABEM e informações do CCT/UFCG, dos anais do CONEMI e do MotorLand Aragón. Revise a autorização das imagens antes de abrir o repositório ao público. O dossiê registra dois trabalhos no CONEMI 2025. A ficha bibliográfica disponível nesta versão corresponde ao artigo identificado nos anais. Confirme a segunda referência, a gestão atual, os vínculos de patrocínio, as cotas, o material comercial público, as datas de eventos e o edital ativo antes de incluí-los. O perfil do Instagram está vinculado como canal oficial e as publicações individuais aguardam URLs verificadas.
+
+A navegação institucional se inspira na Baja UFSC e na UFV Baja Pererecas. A apresentação dos protótipos e os caminhos de recrutamento e apoio usam como referências a Fórmula Tesla UFMG e a Ampera Racing.

@@ -1,0 +1,12 @@
+---
+type Field = { key: string; label: string; options: string[] }
+const { fields = [], search = false, label = 'Pesquisar' } = Astro.props as { fields?: Field[]; search?: boolean; label?: string }
+---
+<div class="collection" data-collection>
+  {(search || fields.length > 0) && <div class="filters" hidden>
+    {search && <label>{label}<input type="search" data-search /></label>}
+    {fields.map(field => <label>{field.label}<select data-filter={field.key}><option value="">Todos</option>{field.options.map(option => <option value={option}>{option}</option>)}</select></label>)}
+  </div>}
+  <slot />
+  <p data-empty role="status" hidden>Nenhum resultado para os filtros selecionados.</p>
+</div>

@@ -1,0 +1,5 @@
+---
+import Entries from '../../layouts/Entries.astro'
+import { news } from '../../data/site'
+---
+<Entries title="Notícias" summary="Pesquisa, competições e atividades do LABEM dentro e fora da universidade." entries={news} base="noticias" search filters={[{key:"category",label:"Categoria"},{key:"year",label:"Ano"}]} />

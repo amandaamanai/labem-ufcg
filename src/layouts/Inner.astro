@@ -1,0 +1,17 @@
+---
+import Base from './Base.astro'
+import Photo from '../components/Photo.astro'
+import type { Photo as PhotoData } from '../data/site'
+import { url } from '../utils/urls'
+const { title, summary, photo, parent, noindex = false } = Astro.props as { title: string; summary: string; photo?: PhotoData; parent?: { href: string; label: string }; noindex?: boolean }
+---
+<Base title={title} description={summary} image={photo?.file} noindex={noindex}>
+  <section class:list={['inner-hero', { 'inner-with-photo': photo }]}>
+    {photo && <Photo photo={photo} eager />}
+    <div class="wrap inner-hero-content">
+      <nav class="breadcrumb" aria-label="Localização"><a href={url()}>Início</a>{parent && <><span aria-hidden="true"> / </span><a href={url(parent.href)}>{parent.label}</a></>}</nav>
+      <h1>{title}</h1><p>{summary}</p>
+    </div>
+  </section>
+  <div class="wrap inner-body"><slot /></div>
+</Base>

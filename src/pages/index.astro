@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro'
+import Banner from '../components/Banner.astro'
+import Timeline from '../components/Timeline.astro'
+import Photo from '../components/Photo.astro'
+import EntryCard from '../components/EntryCard.astro'
+import { engineering, homeSections, institution, news, photos, stats } from '../data/site'
+import { url } from '../utils/urls'
+---
+<Base>
+  <Banner />
+  <section class="stats" aria-label="LABEM em números">
+    <dl class="wrap stats-row">{stats.map(stat => <div><dt>{stat.label}</dt><dd>{stat.value}</dd></div>)}</dl>
+  </section>
+  {homeSections.map(section => (
+    section === 'sobre' ? (
+      <section class="wrap split section-pad" id="sobre">
+        <div class="split-copy">
+          <p class="eyebrow red-mark">O laboratório</p>
+          <h2>DA BANCADA<br />À PISTA<span class="accent">.</span></h2>
+          <p>O Laboratório de Engenharia da Motocicleta é um projeto da UFCG, em Campina Grande. Estudantes de diferentes áreas projetam, fabricam e testam motocicletas de motovelocidade.</p>
+          <a href={url('sobre/')} class="text-link">Conheça nossa história</a>
+        </div>
+        <figure class="feature-photo"><Photo photo={photos.team} /><figcaption>Equipe Galo de Campina · UFCG</figcaption></figure>
+      </section>
+    ) : section === 'competicao' ? (
+      <section class="project-band" id="competicao">
+        <div class="wrap split section-pad">
+          <figure class="project-photo"><Photo photo={photos.prototype} /></figure>
+          <div class="split-copy"><p class="eyebrow red-mark">Competição internacional</p><h2>MOTOSTUDENT<span class="accent">.</span></h2>
+            <p>Conceber uma motocicleta de corrida, defender o projeto diante da banca e colocar o protótipo à prova em Aragón. Esse é o desafio que inspira a equipe Galo de Campina.</p>
+            <div class="actions"><a class="button" href={url('motostudent/')}>Sobre a competição</a><a class="button outline" href={url('projetos/prototipo-de-motovelocidade/')}>Ver protótipo</a></div>
+          </div>
+        </div>
+      </section>
+    ) : section === 'engenharia' ? (
+      <section class="wrap split section-pad engineering-home" id="engenharia">
+        <div class="split-copy"><p class="eyebrow red-mark">Engenharia</p><h2>SEIS FRENTES.<br />UMA MOTO<span class="accent">.</span></h2><p>O trabalho integra da definição do chassi ao relacionamento com a comunidade. Conheça quem faz cada parte do projeto avançar.</p><a class="text-link" href={url('pesquisa/')}>Explore a produção científica</a></div>
+        <ul class="department-list">{engineering.map(item => <li><a href={url(`engenharia/${item.slug}/`)}>{item.title}<span aria-hidden="true">+</span></a></li>)}</ul>
+      </section>
+    ) : section === 'historia' ? (
+      <section class="history-band" id="historia">
+        <div class="wrap split section-pad">
+          <div class="split-copy"><p class="eyebrow red-mark">Nossa história</p><h2>DE CAMPINA<br />A ARAGÓN<span class="accent">.</span></h2><p>Do início na Engenharia Mecânica à primeira participação internacional, acompanhe os marcos da equipe.</p><a class="text-link" href={url('sobre/#historia')}>Leia a trajetória do LABEM</a></div>
+          <Timeline />
+        </div>
+      </section>
+    ) : section === 'noticias' ? (
+      <section class="news-band" id="noticias">
+        <div class="wrap section-pad"><div class="section-heading"><div><p class="eyebrow red-mark">Notícias e eventos</p><h2>DO LABORATÓRIO<span class="accent">.</span></h2></div><a class="text-link" href={url('noticias/')}>Todas as notícias</a></div>
+          <div class="cards">{news.slice(0, 3).map(entry => <EntryCard entry={entry} base="noticias" />)}</div>
+          <div class="actions follow"><a class="button dark-outline" href={url('eventos/')}>Agenda de eventos</a><a class="button dark-outline" href={institution.instagram}>Instagram · @labemufcg</a></div>
+        </div>
+      </section>
+    ) : (
+      <section class="join-band" id="participe"><div class="wrap split section-pad">
+        <div><p class="eyebrow">Estudantes</p><h2>FAÇA PARTE<span>.</span></h2><p>Trabalhe em um projeto real de engenharia na UFCG. Conheça as áreas e acompanhe a abertura dos processos seletivos.</p><a class="button" href={url('faca-parte/')}>Conheça a seleção</a></div>
+        <div><p class="eyebrow">Empresas e instituições</p><h2>APOIE O LABEM<span>.</span></h2><p>Colabore com a formação de estudantes e com o desenvolvimento dos próximos protótipos.</p><a class="button outline" href={url('parceiros/')}>Seja nosso parceiro</a></div>
+      </div></section>
+    )
+  ))}
+</Base>

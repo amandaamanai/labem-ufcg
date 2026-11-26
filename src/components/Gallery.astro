@@ -1,0 +1,17 @@
+---
+import type { Photo as PhotoData } from '../data/site'
+import { url } from '../utils/urls'
+import Photo from './Photo.astro'
+const { photos } = Astro.props as { photos: PhotoData[] }
+---
+<div data-gallery>
+  <div class="gallery-grid">
+    {photos.map(photo => <a href={url('images/' + photo.file)} data-gallery-open aria-label={`Ampliar: ${photo.alt}`}><Photo photo={photo} /></a>)}
+  </div>
+  <dialog aria-label="Fotografia ampliada">
+    <button data-gallery-close class="button small" type="button" autofocus>Fechar</button>
+    <img alt="" />
+    <p data-gallery-caption aria-live="polite"></p>
+    <div class="actions"><button class="button outline small" data-gallery-prev type="button">Anterior</button><button class="button outline small" data-gallery-next type="button">Próxima</button></div>
+  </dialog>
+</div>

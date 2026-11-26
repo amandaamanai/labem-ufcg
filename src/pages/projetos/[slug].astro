@@ -1,0 +1,9 @@
+---
+import Detail from '../../layouts/Detail.astro'
+import { projects } from '../../data/site'
+export function getStaticPaths() {
+  return projects.map(entry => ({ params: { slug: entry.slug }, props: { entry } }))
+}
+const { entry } = Astro.props
+---
+<Detail {entry} entries={projects} base="projetos" label="Projetos e protótipos"  />

@@ -1,0 +1,20 @@
+---
+import Inner from '../layouts/Inner.astro'
+import Gallery from '../components/Gallery.astro'
+import { phases, photos, sources } from '../data/site'
+import { url } from '../utils/urls'
+---
+<Inner title="MotoStudent" summary="Universidades do mundo todo projetam e constroem motocicletas de competição para a avaliação técnica e as provas em MotorLand Aragón, na Espanha." photo={photos.competition}>
+  <section class="prose-block"><h2>Da concepção à corrida</h2><p>A competição desafia estudantes a conduzir um projeto de engenharia completo. As categorias e os requisitos variam entre edições. Na oitava edição, o regulamento oficial distinguiu as categorias EFuel e Electric. Na preparação descrita pelo LABEM para a categoria Petrol, a organização fornece a base motriz, e a equipe desenvolve o restante do conjunto, como chassi, suspensão, carenagem e eletrônica.</p><a class="text-link" href={sources.competition}>Site oficial da MotoStudent</a><br /><a class="text-link" href="https://www.motorlandaragon.com/sites/default/files/2025-10/MS2425_MotoStudent%20Regulations_Motorland%20Arag%C3%B3n.pdf">Regulamento da VIII edição (PDF)</a></section>
+  <div class="phase-tabs" data-tabs>
+    <div class="tab-controls" aria-label="Etapas da MotoStudent" role="tablist" hidden>
+      <button type="button" id="tab-ms1" role="tab" aria-selected="true" aria-controls="painel-ms1">MS1 · Projeto</button>
+      <button type="button" id="tab-ms2" role="tab" aria-selected="false" aria-controls="painel-ms2" tabindex="-1">MS2 · Pista</button>
+    </div>
+    <section id="painel-ms1"><p class="eyebrow red-mark">MS1</p><h2>Projeto</h2><p>Avaliação da documentação técnica, do design, da inovação e da viabilidade do projeto.</p></section>
+    <section id="painel-ms2"><p class="eyebrow red-mark">MS2</p><h2>Pista</h2><p>Inspeções, testes dinâmicos e corrida no complexo MotorLand Aragón.</p></section>
+  </div>
+  <section class="prose-block"><h2>O LABEM na MotoStudent</h2><p>Em 2018, a equipe Galo de Campina participou da fase teórica da quinta edição. O CCT registrou o 19º lugar em Inovação, o 25º em Design e o 31º em Projeto Industrial, entre 46 equipes da categoria. O protótipo não viajou para a Espanha.</p><a class="text-link" href={sources.sixth}>Veja o registro da UFCG</a></section>
+  <section class="content-section"><h2>Etapas de desenvolvimento</h2><ol class="phase-list">{phases.map(phase => <li>{phase}</li>)}</ol><a class="text-link" href={url('eventos/')}>Agenda do laboratório</a></section>
+  <section class="content-section"><h2>Registros da equipe</h2><Gallery photos={[photos.competition, photos.flag]} /></section>
+</Inner>

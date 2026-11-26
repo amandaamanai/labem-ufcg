@@ -1,0 +1,6 @@
+---
+import type { Photo } from '../data/site'
+import { url } from '../utils/urls'
+const { photo, eager = false, class: className } = Astro.props as { photo: Photo; eager?: boolean; class?: string }
+---
+<img src={url('images/' + photo.file)} alt={photo.alt} class={className} style={photo.position && `object-position:${photo.position}`} loading={eager ? 'eager' : 'lazy'} decoding="async" />

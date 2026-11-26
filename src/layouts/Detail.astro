@@ -1,0 +1,21 @@
+---
+import Inner from './Inner.astro'
+import Sections from '../components/Sections.astro'
+import Gallery from '../components/Gallery.astro'
+import EntryCard from '../components/EntryCard.astro'
+import type { Entry } from '../data/site'
+const { entry, entries, base, label, share = false } = Astro.props as { entry: Entry; entries: Entry[]; base: string; label: string; share?: boolean }
+const related = (entry.related ?? []).map(slug => entries.find(item => item.slug === slug)).filter((item): item is Entry => Boolean(item))
+const date = entry.date && new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeZone: 'UTC' }).format(new Date(entry.date))
+---
+<Inner title={entry.title} summary={entry.summary} photo={entry.photo} parent={{ href: base + '/', label }}>
+  <article>
+    <p class="eyebrow red-mark">{entry.category}{entry.status && ` · ${entry.status}`}{date ? <> · <time datetime={entry.date}>{date}</time></> : entry.year && ` · ${entry.year}`}</p>
+    {entry.author && <p class="meta">Por {entry.author}</p>}
+    <Sections sections={entry.sections} />
+    {entry.links && <ul class="source-links">{entry.links.map(link => <li><a class="text-link" href={link.href}>{link.label}</a></li>)}</ul>}
+    {entry.gallery?.length && <section class="content-section"><h2>Galeria do projeto</h2><Gallery photos={entry.gallery} /></section>}
+    {share && <div class="actions list-actions"><button data-share class="button dark-outline" type="button" hidden>Compartilhar notícia</button><span role="status" data-share-status></span></div>}
+  </article>
+  {related.length > 0 && <section class="content-section"><h2>Veja também</h2><div class="cards">{related.map(item => <EntryCard entry={item} {base} />)}</div></section>}
+</Inner>

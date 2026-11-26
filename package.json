@@ -1,0 +1,9 @@
+{
+  "name": "labem-ufcg",
+  "private": true,
+  "type": "module",
+  "scripts": {"dev":"astro dev --host 0.0.0.0","build":"astro build","check":"astro check","preview":"astro preview"},
+  "engines":{"node":">=22.12"},
+  "dependencies":{"astro":"5.18.2","@astrojs/sitemap":"^3.7.0"},
+  "devDependencies":{"@astrojs/check":"^0.9.6","typescript":"^5.9.3"}
+}
