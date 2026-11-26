@@ -19,7 +19,7 @@ npm run build
 npm run preview
 ```
 
-O resultado está em `dist/`. Use um servidor HTTP para visualizá-lo. Em pull requests para a `main`, o workflow **Prévia de revisão** gera o ZIP `previa-estatica` e capturas de desktop e celular. Baixe o ZIP nos artefatos da execução, extraia e execute `python3 -m http.server 4321` na pasta que contém `index.html`. Abra `http://localhost:4321`. A prévia não publica no GitHub Pages.
+O resultado está em `dist/`. Use um servidor HTTP para visualizá-lo. Em pull requests para a `main`, o workflow **Prévia de revisão** gera o ZIP `previa-offline` e capturas de desktop e celular. Baixe o ZIP nos artefatos da execução, extraia todos os arquivos e abra `index.html` no navegador. A prévia não publica no GitHub Pages.
 
 ## Estrutura
 

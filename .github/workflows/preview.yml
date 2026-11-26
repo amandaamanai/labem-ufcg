@@ -26,10 +26,12 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run build
+      - name: Gerar prévia offline
+        run: python3 scripts/preview-offline.py dist previa-offline
       - uses: actions/upload-artifact@v4
         with:
-          name: previa-estatica
-          path: dist/
+          name: previa-offline
+          path: previa-offline/
           retention-days: 14
           if-no-files-found: error
       - name: Preparar o navegador
@@ -48,12 +50,22 @@ jobs:
           curl --retry 5 --retry-connrefused --fail --silent http://127.0.0.1:4321/ > /dev/null
           mkdir capturas
           node <<'JS'
+          const { pathToFileURL } = require('node:url')
+          const { resolve } = require('node:path')
+          const assert = require('node:assert/strict')
           const { chromium } = require(process.env.RUNNER_TEMP + '/labem-capture/node_modules/playwright')
 
           async function capture() {
             const browser = await chromium.launch({ executablePath: process.env.LABEM_PREVIEW_CHROME })
             try {
               const page = await browser.newPage()
+              await page.goto(pathToFileURL(resolve('previa-offline/index.html')).href)
+              assert.match(await page.title(), /LABEM UFCG/)
+              await page.locator('#galeria [data-gallery-open]').first().click()
+              await page.getByRole('dialog').waitFor({ state: 'visible' })
+              await page.keyboard.press('Escape')
+              await page.locator('#oportunidades a[href="eventos/index.html"]').click()
+              await page.getByRole('heading', { name: 'Eventos do LABEM' }).waitFor()
               for (const width of [1440, 390]) {
                 await page.setViewportSize({ width, height: 900 })
                 for (const [route, name] of [['', 'home'], ['eventos/', 'eventos'], ['faca-parte/', 'selecao']]) {
