@@ -1076,3 +1076,212 @@ dialog .actions {
 .phase-tabs section .eyebrow {
   margin-bottom: 10px;
 }
+
+.temporary-notice {
+  padding: 0.6rem var(--gutter);
+  background: var(--strong-red);
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+}
+
+.temporary-notice-dark {
+  background: #2a282a;
+}
+
+.temporary-notice p {
+  margin-inline: auto;
+}
+
+.temporary-notice a {
+  display: inline-block;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.temporary-notice a:focus-visible {
+  outline-color: #fff;
+}
+
+.photo-band {
+  background: #eae8e4;
+}
+
+.social-band {
+  background: #100f11;
+  color: #fff;
+  padding-block: clamp(2rem, 6vw, 5rem);
+}
+
+.social-banner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  border: 1px solid #454246;
+  overflow: hidden;
+  background: #1b191c;
+}
+
+.social-copy {
+  padding: clamp(1.5rem, 5vw, 4.5rem);
+}
+
+.social-copy h2 {
+  margin-block: 0.65rem 1rem;
+  font-size: clamp(2.8rem, 5vw, 5rem);
+}
+
+.social-copy p:not(.eyebrow) {
+  color: #e7e1e6;
+  margin-bottom: 1.5rem;
+}
+
+.social-banner:hover .button {
+  background: var(--strong-red);
+}
+
+.social-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  min-height: 19rem;
+}
+
+.social-photos img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 0;
+}
+
+.social-photos img:first-child {
+  grid-row: span 2;
+}
+
+.opportunity-note {
+  margin-bottom: 1rem;
+  color: var(--muted);
+}
+
+.opportunity-list,
+.institutional-partners {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.opportunity-list li,
+.institutional-partners li {
+  border-bottom: 1px solid var(--line);
+}
+
+.opportunity-list a {
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.85rem 0.2rem;
+}
+
+.opportunity-list a:hover,
+.institutional-partners a:hover {
+  color: var(--strong-red);
+}
+
+.opportunity-list strong,
+.institutional-partners li {
+  font-size: 1.18rem;
+  font-weight: 700;
+}
+
+.institutional-partners li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 1rem;
+}
+
+.institutional-partners img,
+.sponsor-logo {
+  width: auto;
+  max-width: 10rem;
+  max-height: 4.5rem;
+  object-fit: contain;
+}
+
+.event-intro > .eyebrow,
+.recruitment-intro > .eyebrow {
+  margin-bottom: 0.7rem;
+}
+
+.event-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 0.85rem;
+  margin: 1.25rem 0;
+  max-width: 65rem;
+}
+
+.event-facts > div {
+  padding: 0.85rem 1rem;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.event-facts dt,
+.countdown {
+  font-weight: 700;
+}
+
+.event-facts dd {
+  color: var(--muted);
+}
+
+.speaker {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.speaker img {
+  width: 5.5rem;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.registration iframe {
+  display: block;
+  width: 100%;
+  max-width: 58rem;
+  margin-top: 1.3rem;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.copy-link {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (max-width: 1050px) {
+  .nav-item:nth-child(2) .submenu {
+    --submenu-offset: 5.2rem;
+  }
+
+  .nav-item:nth-child(5) .submenu {
+    --submenu-offset: 7.6rem;
+  }
+}
+
+@media (max-width: 740px) {
+  .social-banner {
+    grid-template-columns: 1fr;
+  }
+
+  .social-photos {
+    min-height: 0;
+    height: 13rem;
+  }
+}

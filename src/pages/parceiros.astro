@@ -1,7 +1,10 @@
 ---
 import Inner from '../layouts/Inner.astro'
-import { institution, partners, photos } from '../data/site'
+import { partners, partnership, photos } from '../data/site'
+import { publicHref } from '../utils/opportunities'
 import { url } from '../utils/urls'
+const institutional = partners.filter(partner => !partner.sponsor)
+const sponsors = partners.filter(partner => partner.sponsor)
 const support = [
   { title: 'Materiais e fabricação', text: 'Componentes, insumos e serviços que ajudem a transformar o projeto em protótipo.' },
   { title: 'Apoio tecnológico', text: 'Consultoria, treinamento e colaboração em ferramentas ou processos de engenharia.' },
@@ -10,6 +13,8 @@ const support = [
 ]
 ---
 <Inner title="Seja nosso parceiro" summary="Apoie a formação prática de estudantes e o desenvolvimento de motocicletas de competição na UFCG." photo={photos.workshop}>
-  <section class="content-section"><h2>Como colaborar</h2><ul class="records">{support.map(item => <li><h3>{item.title}</h3><p>{item.text}</p></li>)}</ul><a class="button" href={`mailto:${institution.email}?subject=Parceria%20com%20o%20LABEM`}>Conversar sobre parceria</a></section>
-  <section class="content-section"><h2>Vínculos institucionais e parceiros</h2><ul class="records">{partners.map(partner => <li>{partner.logo && <img src={url(partner.logo)} alt={partner.name} width="170" loading="lazy" />}<p class="eyebrow">{partner.category}</p><h3>{partner.name}</h3><p>{partner.description}</p>{partner.href && <a class="text-link" href={partner.href}>Site institucional</a>}</li>)}</ul></section>
+  <section class="prose-block"><h2>Por que apoiar</h2><p>Na UFCG, estudantes de diferentes áreas colocam em prática o que aprendem em sala. O apoio de empresas permite levar projetos da modelagem à fabricação, realizar ensaios e formar estudantes no trabalho em equipe.</p></section>
+  <section class="content-section"><h2>Como colaborar</h2><ul class="records">{support.map(item => <li><h3>{item.title}</h3><p>{item.text}</p></li>)}</ul><a class="button" href={`mailto:${partnership.email}?subject=Parceria%20com%20o%20LABEM`}>Conversar sobre parceria</a>{partnership.presentationPdf && <p class="list-actions"><a class="text-link" href={publicHref(partnership.presentationPdf)}>Baixar apresentação institucional (PDF)</a></p>}</section>
+  <section class="content-section"><h2>Vínculos institucionais e parceiros</h2><ul class="records">{institutional.map(partner => <li>{partner.logo && <img src={url(partner.logo)} alt={partner.name} width="170" loading="lazy" />}<p class="eyebrow">{partner.category}</p><h3>{partner.name}</h3><p>{partner.description}</p>{partner.href && <a class="text-link" href={partner.href}>Site institucional</a>}</li>)}</ul></section>
+  {!!sponsors.length && <section class="content-section"><h2>Patrocinadores</h2><ul class="records">{sponsors.map(sponsor => <li>{sponsor.logo && <img class="sponsor-logo" src={url(sponsor.logo)} alt="" loading="lazy" />}<h3>{sponsor.name}</h3><p>{sponsor.description}</p>{sponsor.href && <a class="text-link" href={sponsor.href}>Conheça a empresa</a>}</li>)}</ul></section>}
 </Inner>

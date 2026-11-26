@@ -1,0 +1,13 @@
+---
+import { notices } from '../data/notices'
+import { publicHref } from '../utils/opportunities'
+---
+{notices.length > 0 && (
+  <aside aria-label="Aviso do LABEM" data-notice-bar hidden>
+    {notices.map(notice => (
+      <div class:list={['temporary-notice', { 'temporary-notice-dark': notice.color === 'dark' }]} data-notice-start={notice.startsAt} data-notice-end={notice.endsAt} hidden>
+        {notice.href ? <a href={publicHref(notice.href)}>{notice.text}</a> : <p>{notice.text}</p>}
+      </div>
+    ))}
+  </aside>
+)}

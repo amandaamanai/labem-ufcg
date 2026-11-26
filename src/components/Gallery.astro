@@ -12,6 +12,6 @@ const { photos } = Astro.props as { photos: PhotoData[] }
     <button data-gallery-close class="button small" type="button" autofocus>Fechar</button>
     <img alt="" />
     <p data-gallery-caption aria-live="polite"></p>
-    <div class="actions"><button class="button outline small" data-gallery-prev type="button">Anterior</button><button class="button outline small" data-gallery-next type="button">Próxima</button></div>
+    {photos.length > 1 && <div class="actions"><button class="button outline small" data-gallery-prev type="button">Anterior</button><button class="button outline small" data-gallery-next type="button">Próxima</button></div>}
   </dialog>
 </div>

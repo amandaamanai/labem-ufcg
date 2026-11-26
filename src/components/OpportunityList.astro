@@ -1,0 +1,15 @@
+---
+import { getEvent } from '../data/events'
+import { recruitment, recruitmentStatus } from '../data/recruitment'
+import { url } from '../utils/urls'
+const { home = false } = Astro.props as { home?: boolean }
+const event = getEvent()
+const showEvent = event?.active && (!home || event.featured)
+const showRecruitment = recruitment.status !== 'sem-edital' && (!home || recruitment.featured)
+const hasOpen = (showEvent && event.registration === 'aberta') || (showRecruitment && recruitment.status === 'inscricoes-abertas')
+---
+{!hasOpen && <p class="opportunity-note">{showEvent || showRecruitment ? 'Consulte as datas e os documentos das oportunidades em destaque.' : 'Sem oportunidades em destaque no momento. Confira os canais de eventos e recrutamento.'}</p>}
+<ul class="opportunity-list">
+  <li><a href={url('eventos/')}><span class="eyebrow">Eventos</span><strong>{showEvent ? event.title : 'Eventos e inscrições'}</strong></a></li>
+  <li><a href={url('faca-parte/')}><span class="eyebrow">{showRecruitment ? recruitmentStatus : 'Processo seletivo'}</span><strong>{showRecruitment ? recruitment.edition ?? recruitment.title : 'Editais e recrutamento'}</strong></a></li>
+</ul>

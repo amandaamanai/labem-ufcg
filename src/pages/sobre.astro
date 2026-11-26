@@ -1,5 +1,6 @@
 ---
 import Inner from '../layouts/Inner.astro'
+import Gallery from '../components/Gallery.astro'
 import Timeline from '../components/Timeline.astro'
 import Sections from '../components/Sections.astro'
 import { photos } from '../data/site'
@@ -9,8 +10,9 @@ import { url } from '../utils/urls'
   <Sections sections={[
     { title: 'Engenharia na UFCG', text: 'O LABEM nasceu na Engenharia Mecânica da Universidade Federal de Campina Grande. A equipe reúne estudantes de Engenharia Mecânica, Engenharia Elétrica, Engenharia de Produção, Design e outras áreas para pesquisar e desenvolver motocicletas de competição.' },
     { id: 'proposito', title: 'Propósito e objetivos', text: 'O laboratório busca formar estudantes por meio de um projeto real de engenharia. O desenvolvimento combina simulação, prototipagem e testes experimentais, com atenção a desempenho, eficiência, segurança e trabalho em equipe.' },
-    { id: 'estrutura', title: 'Como nos organizamos', text: 'Estrutura, Powertrain, Elétrica, Marketing, Extensão e Competição dividem responsabilidades e integram suas entregas em cada ciclo de desenvolvimento.' },
+    { id: 'estrutura', title: 'Como nos organizamos', text: 'Estrutura, Powertrain e Elétrica concentram o trabalho técnico. Marketing atua na comunicação e no relacionamento institucional. Extensão leva atividades educativas à comunidade. Competição articula a preparação para as etapas da MotoStudent.' },
   ]} />
+  <p class="prose-block"><a class="text-link" href={url('equipe/#gestao')}>Saiba como a equipe se organiza</a></p>
   <div class="actions list-actions"><a class="button" href={url('equipe/')}>Equipe e orientação</a><a class="button dark-outline" href={url('galeria/')}>Galeria</a></div>
-  <section id="historia" class="content-section"><h2>Linha do tempo</h2><Timeline /></section>
+  <section id="historia" class="content-section"><h2>Linha do tempo</h2><p>Desde a fundação em 2012, gerações de estudantes levaram o projeto da oficina às apresentações técnicas em Aragón, ao CONEMI e às ações do LABEM Conecta.</p><Timeline /><Gallery photos={[photos.historical, photos.competition, photos.team]} /></section>
 </Inner>

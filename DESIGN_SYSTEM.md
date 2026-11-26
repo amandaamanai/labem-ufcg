@@ -21,3 +21,6 @@ Barlow Condensed 800 compõe títulos de seção e capa. Inter compõe textos, b
 - **Imagens.** Use imagens do laboratório, comprima em WebP e descreva o conteúdo em texto alternativo. Use `position` quando a composição exigir um ponto de corte específico.
 - **Navegação.** Abaixo de 1051 px, o menu é expansível. Grades migram para duas ou uma coluna, de acordo com o espaço.
 - **Acessibilidade.** Preserve o foco visível, ordem de leitura, controles nativos e atalhos de teclado. Desative transições e rolagem suave para quem prefere movimento reduzido.
+
+- **Oportunidades.** Use a barra compacta acima da navegação para avisos com prazo. As páginas internas preservam a capa e oferecem seções de leitura para programação, edital e formulários.
+- **Fotografias institucionais.** Na home, a galeria preserva a ampliação por teclado. O banner do Instagram usa fotografias existentes, ocupa uma única área clicável e empilha texto e imagem no celular.

@@ -1,0 +1,13 @@
+---
+import { formLinks, type GoogleForm } from '../utils/opportunities'
+const { form, title } = Astro.props as { form?: GoogleForm; title: string }
+const { embed, external } = formLinks(form)
+---
+{external && (
+  <section id="inscricoes" class="content-section registration">
+    <h2>Inscrições</h2>
+    <p>As respostas são enviadas ao LABEM pelo Google Forms. Informe apenas os dados solicitados para esta inscrição. <a class="text-link" href="https://policies.google.com/privacy?hl=pt-BR">Política de privacidade do Google</a></p>
+    <a class="button" href={external}>Abrir formulário no Google Forms</a>
+    {embed && <iframe src={embed} title={`Formulário de inscrição · ${title}`} loading="lazy" height={form?.height ?? 720} referrerpolicy="strict-origin-when-cross-origin"></iframe>}
+  </section>
+)}
