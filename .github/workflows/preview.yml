@@ -1,0 +1,78 @@
+name: Prévia de revisão
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  ASTRO_TELEMETRY_DISABLED: '1'
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: previa-estatica
+          path: dist/
+          retention-days: 14
+          if-no-files-found: error
+      - name: Instalar o Chromium
+        run: |
+          npm install --prefix "$RUNNER_TEMP/labem-capture" --no-save playwright@1.57.0
+          "$RUNNER_TEMP/labem-capture/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Capturar a prévia
+        run: |
+          python3 -m http.server 4321 --bind 127.0.0.1 --directory dist > /tmp/labem-preview.log 2>&1 &
+          server=$!
+          trap 'kill "$server"' EXIT
+          curl --retry 5 --retry-connrefused --fail --silent http://127.0.0.1:4321/ > /dev/null
+          mkdir capturas
+          node <<'JS'
+          const { chromium } = require(process.env.RUNNER_TEMP + '/labem-capture/node_modules/playwright')
+
+          async function capture() {
+            const browser = await chromium.launch()
+            try {
+              const page = await browser.newPage()
+              for (const width of [1440, 390]) {
+                await page.setViewportSize({ width, height: 900 })
+                for (const [route, name] of [['', 'home'], ['eventos/', 'eventos'], ['faca-parte/', 'selecao']]) {
+                  await page.goto('http://127.0.0.1:4321/' + route)
+                  await page.evaluate(async () => {
+                    const photos = [...document.querySelectorAll('img[loading="lazy"]')]
+                    for (const photo of photos) photo.loading = 'eager'
+                    await Promise.all(photos.map(photo => photo.decode()))
+                    await document.fonts.ready
+                  })
+                  await page.screenshot({ path: `capturas/${name}-${width}.png`, fullPage: true })
+                }
+              }
+            } finally {
+              await browser.close()
+            }
+          }
+
+          capture().catch(error => { console.error(error); process.exitCode = 1 })
+          JS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: capturas-desktop-e-celular
+          path: capturas/
+          retention-days: 14
+          if-no-files-found: error

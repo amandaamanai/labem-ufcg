@@ -14,6 +14,6 @@ const fields = filters.map(field => ({
 })).filter(field => field.options.length > 1)
 ---
 <Inner {title} {summary}>
-  {base === 'noticias' && <div class="actions list-actions"><a class="button dark-outline" href={url('eventos/')}>Agenda de eventos</a><a class="button dark-outline" href={institution.instagram}>Instagram · @labemufcg</a></div>}
+  {base === 'noticias' && <div class="actions list-actions"><a class="button dark-outline" href={url('eventos/')}>Eventos do LABEM</a><a class="button dark-outline" href={institution.instagram}>Atualizações no Instagram</a></div>}
   <Collection {search} {fields}><div class="cards">{entries.map(entry => <EntryCard {entry} {base} />)}</div></Collection>
 </Inner>

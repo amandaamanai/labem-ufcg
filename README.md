@@ -19,13 +19,14 @@ npm run build
 npm run preview
 ```
 
-O resultado está em `dist/`. Use um servidor HTTP para visualizá-lo.
+O resultado está em `dist/`. Use um servidor HTTP para visualizá-lo. Em pull requests para a `main`, o workflow **Prévia de revisão** gera o ZIP `previa-estatica` e capturas de desktop e celular. Baixe o ZIP nos artefatos da execução, extraia e execute `python3 -m http.server 4321` na pasta que contém `index.html`. Abra `http://localhost:4321`. A prévia não publica no GitHub Pages.
 
 ## Estrutura
 
 | Caminho | Conteúdo |
 | --- | --- |
-| `src/data/site.ts` | Navegação, banners, dados institucionais, notícias, projetos, subsistemas e demais coleções |
+| `src/data/site.ts` | Navegação, banners, dados institucionais, arquivo histórico, projetos, subsistemas e galeria |
+| `src/data/events.ts`, `recruitment.ts` e `notices.ts` | Eventos, processos seletivos e avisos temporários |
 | `src/pages/` | Páginas e rotas dinâmicas geradas estaticamente a partir das coleções |
 | `src/components/` e `src/layouts/` | Componentes e layouts compartilhados |
 | `src/styles/site.css` | Identidade, tipografia, layouts e regras responsivas |
@@ -37,6 +38,6 @@ Leia [Manual de edição](MANUAL_DE_EDICAO.md), [Manual de publicação](MANUAL_
 
 ## Conteúdo para revisar
 
-O site usa imagens extraídas das apresentações do LABEM e informações do CCT/UFCG, dos anais do CONEMI e do MotorLand Aragón. Revise a autorização das imagens antes de abrir o repositório ao público. O dossiê registra dois trabalhos no CONEMI 2025. A ficha bibliográfica disponível nesta versão corresponde ao artigo identificado nos anais. Confirme a segunda referência, a gestão atual, os vínculos de patrocínio, as cotas, o material comercial público, as datas de eventos e o edital ativo antes de incluí-los. O perfil do Instagram está vinculado como canal oficial e as publicações individuais aguardam URLs verificadas.
+O site usa imagens extraídas das apresentações do LABEM e informações do CCT/UFCG, dos anais do CONEMI e do MotorLand Aragón. Revise a autorização das imagens antes de abrir o repositório ao público. O dossiê registra dois trabalhos no CONEMI 2025. A ficha bibliográfica disponível nesta versão corresponde ao artigo identificado nos anais. Confirme a segunda referência, a gestão atual, os vínculos de patrocínio, as cotas, o material comercial público, as datas de eventos e o edital ativo antes de incluí-los. O Instagram é o canal de atualizações. O arquivo de notícias do site preserva os links já divulgados.
 
 A navegação institucional se inspira na Baja UFSC e na UFV Baja Pererecas. A apresentação dos protótipos e os caminhos de recrutamento e apoio usam como referências a Fórmula Tesla UFMG e a Ampera Racing.

@@ -189,3 +189,38 @@ document.querySelectorAll<HTMLElement>('[data-tabs]').forEach(group => {
   select(0)
   controls.hidden = false
 })
+
+document.querySelectorAll<HTMLButtonElement>('[data-copy-link]').forEach(button => {
+  if (!navigator.clipboard) return
+  const status = button.parentElement?.querySelector('[role="status"]')
+  button.hidden = false
+  button.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(button.dataset.copyLink || location.href)
+      if (status) status.textContent = 'Link copiado.'
+    } catch {
+      if (status) status.textContent = 'Copie o endereço na barra do navegador.'
+    }
+  })
+})
+
+const noticeBar = document.querySelector<HTMLElement>('[data-notice-bar]')
+if (noticeBar) {
+  const notices = [...noticeBar.querySelectorAll<HTMLElement>('[data-notice-start]')].map(element => ({
+    element,
+    start: Date.parse(element.dataset.noticeStart ?? ''),
+    end: Date.parse(element.dataset.noticeEnd ?? ''),
+  }))
+  let timer: number
+  const updateNotice = () => {
+    window.clearTimeout(timer)
+    const now = Date.now()
+    const current = notices.find(notice => notice.start <= now && now < notice.end)
+    for (const notice of notices) notice.element.hidden = notice !== current
+    noticeBar.hidden = !current
+    const next = Math.min(...notices.flatMap(notice => [notice.start, notice.end]).filter(time => time > now))
+    if (Number.isFinite(next)) timer = window.setTimeout(updateNotice, Math.min(next - now, 2_147_483_647))
+  }
+  document.addEventListener('visibilitychange', updateNotice)
+  updateNotice()
+}

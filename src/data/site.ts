@@ -16,22 +16,23 @@ export const institution = {
 }
 export const navigation = [
   { label: 'Início', href: '' },
-  { label: 'Sobre', href: 'sobre/', children: [
-    { label: 'História', href: 'sobre/#historia' }, { label: 'Propósito', href: 'sobre/#proposito' },
-    { label: 'Equipe e orientação', href: 'equipe/' }, { label: 'Galeria', href: 'galeria/' },
+  { label: 'Sobre nós', href: 'sobre/', children: [
+    { label: 'História', href: 'sobre/#historia' }, { label: 'Equipe', href: 'equipe/' },
+    { label: 'Professores', href: 'equipe/#professores' }, { label: 'Galeria', href: 'galeria/' },
   ] },
   { label: 'MotoStudent', href: 'motostudent/' },
   { label: 'Engenharia', href: 'engenharia/', children: [
-    { label: 'Estrutura e chassi', href: 'engenharia/estrutura/' }, { label: 'Powertrain', href: 'engenharia/powertrain/' },
-    { label: 'Elétrica e eletrônica', href: 'engenharia/eletrica/' }, { label: 'Pesquisa e inovação', href: 'pesquisa/' },
+    { label: 'Subsistemas', href: 'engenharia/' }, { label: 'Projetos', href: 'projetos/' },
+    { label: 'Produção científica', href: 'pesquisa/' },
   ] },
-  { label: 'Projetos', href: 'projetos/' },
-  { label: 'Notícias', href: 'noticias/' },
+  { label: 'Oportunidades', href: 'oportunidades/', children: [
+    { label: 'Eventos', href: 'eventos/' }, { label: 'Processos seletivos', href: 'faca-parte/' },
+  ] },
   { label: 'Parceiros', href: 'parceiros/' },
 ]
 export const quickLinks: Link[] = [
   { label: 'Equipe', href: 'equipe/' }, { label: 'Produção científica', href: 'pesquisa/' },
-  { label: 'Eventos', href: 'eventos/' }, { label: 'Galeria', href: 'galeria/' },
+  { label: 'Oportunidades', href: 'oportunidades/' }, { label: 'Galeria', href: 'galeria/' },
   { label: 'Contato', href: 'contato/' },
 ]
 export const banner = {
@@ -47,13 +48,7 @@ export const banner = {
     align: 'left', position: 'right 56%', overlay: '.23', height: '620px',
   }],
 }
-export const homeSections = ['sobre', 'competicao', 'engenharia', 'historia', 'noticias', 'participe'] as const
-export const stats = [
-  { value: '2012', label: 'Ano de fundação' },
-  { value: '200+', label: 'Estudantes em 13 anos' },
-  { value: '6', label: 'Subsistemas integrados' },
-  { value: '2', label: 'Artigos no CONEMI 2025' },
-]
+export const homeSections = ['sobre', 'historia', 'competicao', 'engenharia', 'galeria', 'oportunidades', 'instagram', 'parceiros', 'apoio'] as const
 export const sources = {
   aragon: 'https://cct.ufcg.edu.br/noticias/estudantes-da-ufcg-disputam-competicao-internacional-na-espanha/',
   sixth: 'https://cct.ufcg.edu.br/noticias/unica-do-nordeste-ufcg-representara-o-brasil-em-competicao-internacional-de-engenharia-na-espanha/',
@@ -75,9 +70,18 @@ export const photos = {
   class: { file: 'workshop.webp', alt: 'Participantes de um workshop com a bandeira do LABEM' },
   research: { file: 'amortecedor.webp', alt: 'Diagrama do sistema massa-mola-amortecedor aplicado à motocicleta' },
 } satisfies Record<string, Photo>
+export const instagramBanner = {
+  title: 'Acompanhe nossa jornada.',
+  description: 'Da oficina às competições, acompanhe nossos projetos, eventos, conquistas e bastidores.',
+  button: 'Visite nosso Instagram',
+  href: institution.instagram,
+  photos: [photos.workshop, photos.competition, photos.fair],
+}
+export const homeGallery = [photos.historical, photos.workshop, photos.competition]
+export const motoStudent2018 = 'Em 2018, a equipe Galo de Campina apresentou seu projeto na fase teórica da quinta MotoStudent, em Aragón. Como a motocicleta não viajou para a Espanha, a equipe não participou das provas de pista.'
 export const timeline = [
   { year: '2012', title: 'Fundação na UFCG', text: 'Daniel Anacleto inicia o LABEM na Engenharia Mecânica, orientado por Wanderley Ferreira e Juscelino Maribondo.' },
-  { year: '2018', title: 'Estreia internacional', text: 'A equipe Galo de Campina apresenta o projeto na quinta MotoStudent, em Aragón.', href: sources.aragon },
+  { year: '2018', title: 'Estreia internacional', text: motoStudent2018, href: sources.aragon },
   { year: '2019', title: 'Preparação para a sexta edição', text: 'O CCT anuncia a aprovação da equipe para outro ciclo da MotoStudent.', href: sources.sixth },
   { year: '2025', title: 'Produção no CONEMI', text: 'A apresentação institucional registra dois artigos publicados no congresso.' },
 ]
@@ -141,16 +145,19 @@ export const team = [
   { name: 'Juscelino Maribondo', role: 'Orientação na fundação', area: 'Docência', period: 'Histórico' },
   { name: 'Ruan Eduardo Carneiro Lucas', role: 'Coordenação do LABEM Conecta', area: 'Extensão', period: 'Registro institucional' },
 ]
-export const partners: { name: string; category: string; description: string; logo?: string; href?: string }[] = [
+export const governance: {
+  current?: { period: string; description: string }
+  history: { period: string; description: string }[]
+} = { history: [] }
+
+export const partnership: { presentationPdf?: string; email: string } = { email: institution.email }
+export const partners: { name: string; category: string; description: string; logo?: string; href?: string; sponsor?: boolean }[] = [
   { name: 'Universidade Federal de Campina Grande', category: 'Vínculo institucional', description: 'Universidade à qual o projeto está vinculado, por meio do Centro de Ciências e Tecnologia.', href: institution.university },
 ]
-export const recruitment: { status: string; deadline?: string; application?: string; notice?: string; schedule: { date: string; label: string }[] } = {
-  status: 'Acompanhe os próximos editais', schedule: [],
-}
-export const upcomingEvents: { title: string; date: string; place: string; description: string; status: string; href?: string; countdown?: boolean }[] = []
 export const gallery = [
-  { title: 'Equipe e história', category: 'Equipe', photos: [photos.team, photos.historical] },
-  { title: 'MotoStudent', category: 'Competições', photos: [photos.competition, photos.flag] },
-  { title: 'Na oficina', category: 'Projetos', photos: [photos.workshop, photos.motor, photos.prototype] },
-  { title: 'Pesquisa e extensão', category: 'Eventos', photos: [photos.conemi, photos.fair, photos.outreach, photos.class] },
+  { title: 'História e equipe', photos: [photos.historical, photos.team] },
+  { title: 'MotoStudent', photos: [photos.competition, photos.flag] },
+  { title: 'Oficina e projetos', photos: [photos.workshop, photos.motor, photos.prototype, photos.fair] },
+  { title: 'Pesquisa e formação', photos: [photos.conemi, photos.research, photos.class] },
+  { title: 'Extensão', photos: [photos.outreach] },
 ]

@@ -1,12 +1,17 @@
 ---
 import '../styles/site.css'
 import { institution, navigation, quickLinks } from '../data/site'
+import NoticeBar from '../components/NoticeBar.astro'
+import type { Sharing } from '../utils/opportunities'
 import { url } from '../utils/urls'
-const { title, description, image = 'banner.webp', noindex = false } = Astro.props as { title?: string; description?: string; image?: string; noindex?: boolean }
+const { title, description, image = 'banner.webp', noindex = false, sharing } = Astro.props as { title?: string; description?: string; image?: string; noindex?: boolean; sharing?: Sharing }
 const fullTitle = title ? `${title} | LABEM UFCG` : 'LABEM UFCG | Laboratório de Engenharia da Motocicleta'
 const summary = description ?? 'Laboratório de Engenharia da Motocicleta da UFCG. Engenharia, pesquisa e protótipos de competição da equipe Galo de Campina.'
 const canonical = Astro.site && new URL(Astro.url.pathname, Astro.site)
-const cover = Astro.site ? new URL(url('images/' + image), Astro.site) : url('images/' + image)
+const shareImage = sharing?.image ?? image
+const imagePath = shareImage.startsWith('https://') ? shareImage : url('images/' + shareImage)
+const cover = Astro.site ? new URL(imagePath, Astro.site).href : imagePath
+const shareUrl = sharing?.url ?? canonical?.href
 const current = (href: string) => Astro.url.pathname === url(href)
 ---
 <!doctype html>
@@ -16,19 +21,20 @@ const current = (href: string) => Astro.url.pathname === url(href)
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={summary} />
     {noindex && <meta name="robots" content="noindex" />}
-    <meta property="og:title" content={fullTitle} />
-    <meta property="og:description" content={summary} />
+    <meta property="og:title" content={sharing?.title ?? fullTitle} />
+    <meta property="og:description" content={sharing?.description ?? summary} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:image" content={cover.toString()} />
+    <meta property="og:image" content={cover} />
     {canonical && <link rel="canonical" href={canonical.toString()} />}
-    {canonical && <meta property="og:url" content={canonical.toString()} />}
+    {shareUrl && <meta property="og:url" content={shareUrl} />}
     <meta name="theme-color" content="#101011" />
     <link rel="icon" href={url('favicon.png')} type="image/png" />
     <title>{fullTitle}</title>
   </head>
   <body>
     <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+    <NoticeBar />
     <header class="site-header">
       <div class="wrap header-row">
         <a class="brand" href={url()} aria-label="LABEM UFCG, início"><img src={url('images/labem.png')} width="109" height="54" alt="LABEM UFCG MotoStudent Team" /></a>
@@ -36,13 +42,12 @@ const current = (href: string) => Astro.url.pathname === url(href)
         <nav id="site-navigation" aria-label="Navegação principal">
           <ul class="nav-list">
             {navigation.map(({ label, href, children }) => (
-              <li class:list={['nav-item', { active: current(href) }]}>
+              <li class:list={['nav-item', { active: current(href) || children?.some(child => current(child.href)) }]}>
                 <a href={url(href)} aria-current={current(href) ? 'page' : undefined}>{label}</a>
                 {children && <details class="submenu"><summary aria-label={`Submenu de ${label}`}><span aria-hidden="true"></span></summary><ul>{children.map(child => <li><a href={url(child.href)}>{child.label}</a></li>)}</ul></details>}
               </li>
             ))}
           </ul>
-          <a class="button small" href={url('faca-parte/')}>Faça parte</a>
         </nav>
       </div>
     </header>

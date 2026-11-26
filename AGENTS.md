@@ -7,3 +7,9 @@
 - Use `npm ci`, `npm run dev`, `npm run check` e `npm run build`. Verifique navegação e mídia em subdiretórios do GitHub Pages. Atualize os manuais quando o procedimento de manutenção mudar.
 - Preserve a hospedagem estática gratuita. Evite dependências desnecessárias e adicione backend, autenticação ou instrumentos pagos somente com solicitação expressa.
 - Publique alterações no site oficial apenas com autorização. O workflow de publicação está documentado em `MANUAL_DE_PUBLICACAO.md`.
+
+## Oportunidades e arquivo
+
+- Configure eventos em `src/data/events.ts`, editais em `src/data/recruitment.ts` e avisos em `src/data/notices.ts`. Use datas com fuso explícito e Google Forms oficiais com links distintos para eventos e recrutamento.
+- Preserve as rotas permanentes `/eventos/`, `/faca-parte/` e as notícias arquivadas. Direcione atualizações cotidianas para o Instagram configurado em `src/data/site.ts`.
+- Teste os estados ativos e inativos das oportunidades. Trabalhe em uma branch e envie a publicação para aprovação antes de integrar à `main`.

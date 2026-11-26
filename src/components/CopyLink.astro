@@ -1,0 +1,7 @@
+---
+const { href } = Astro.props as { href?: string }
+---
+<div class="copy-link">
+  <button class="button dark-outline" data-copy-link={href ?? ''} type="button" hidden>Copiar link</button>
+  <span role="status"></span>
+</div>

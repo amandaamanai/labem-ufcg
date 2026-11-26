@@ -9,18 +9,28 @@ A maioria das mudanças editoriais é feita em `src/data/site.ts`. Execute `npm 
 | Menu e rodapé | Reordene, adicione ou retire itens em `navigation` e `quickLinks`. Itens com `children` exibem submenu. |
 | Seções da home | Reordene ou retire chaves de `homeSections`. O conteúdo específico de cada bloco está em `src/pages/index.astro`. |
 | Fotografias | Salve WebP em `public/images/` e registre `file`, `alt` e, opcionalmente, `position` em `photos`. Inclua a referência no álbum de `gallery` ou na entrada correspondente. |
-| Equipe e gestões | Adicione registros em `team` com nome, função, área e período autorizados. Preserve períodos anteriores. |
-| Notícias e projetos | Adicione uma entrada em `news` ou `projects` com um `slug` único, título, categoria, resumo e seções. Inclua capa, data ISO, autor, galeria, links e itens relacionados conforme os dados disponíveis. O build gera a URL. |
+| Equipe e gestões | Atualize `governance.current` e `governance.history` com períodos e descrições autorizados. Os registros de orientação ficam em `team`. |
+| Projetos e arquivo histórico | Adicione uma entrada em `projects` ou no arquivo `news` com um `slug` único, título, categoria, resumo e seções. Inclua capa, data ISO, autor, galeria, links e itens relacionados conforme os dados disponíveis. O build gera a URL. |
 | Engenharia | Adicione um subsistema em `engineering`. O mesmo registro alimenta a lista e a página individual. |
-| Eventos | Adicione um registro em `upcomingEvents`. Use data e hora ISO com fuso, por exemplo `2030-04-15T18:30:00-03:00`. Defina `countdown: true` quando a data estiver confirmada. Retire o evento da agenda depois que passar. |
 | Patrocínio ou parceria | Adicione um registro autorizado em `partners` com categoria, descrição, site e logotipo. Confirme a natureza do vínculo e aprove o material público antes de incluir cotas ou PDFs. |
 | Produção científica | Registre título oficial, autores, ano, tipo, evento, resumo e DOI em `publications`. Confira nos anais ou no repositório institucional. |
-| Processo seletivo | Edite `recruitment` com status, prazo, etapas, edital público e link externo de inscrição. Ao encerrar, retire o link e atualize o status. |
 | Nova página | Crie um arquivo `.astro` em `src/pages/`, use o layout `Inner` e inclua o caminho no menu se necessário. |
+
+## Eventos, inscrições e editais
+
+- **Evento.** Em `src/data/events.ts`, retorne um evento com `active: true` em `getEvent()`. Preencha título, subtítulo, descrição, local, modalidade, `startsAt` e `timeZone`. Use data ISO com fuso, como `2030-04-15T18:30:00-03:00`, e um fuso IANA, como `America/Sao_Paulo`. Configure `banner` e `mobileBanner` com imagens de `public/images/`. Preencha palestrantes, programação, público e certificado quando confirmados. Use `featured` para mostrar o nome na home. Ative `countdown` para mostrar a contagem regressiva e `calendar` com `endsAt` para oferecer um arquivo de calendário.
+- **Google Forms.** Use links de resposta públicos e independentes para eventos e recrutamento. Preencha `form.embedUrl` com o endereço de incorporação do Google Forms, `form.externalUrl` com o link de resposta e, se necessário, `form.height` em pixels. Eventos mostram o formulário apenas com `registration: 'aberta'`. Recrutamento exige `status: 'inscricoes-abertas'`. Teste o link de resposta em uma janela anônima.
+- **Encerramento e arquivo.** Feche a recepção de respostas no Google Forms e atualize o status no site. Antes de reutilizar o formulário permanente, exporte as respostas ou arquive a planilha em área restrita. Anote a edição e o período, limite o acesso aos responsáveis e mantenha os dados conforme as regras de retenção aplicáveis. Depois, separe o destino das novas respostas. Dados de inscrição devem ficar fora do GitHub.
+- **Edital e resultados.** Em `src/data/recruitment.ts`, configure edição, ano, capa, título, descrição, requisitos, vagas, cronograma e etapas. Preencha `noticePdf` e `documents` com caminhos de arquivos públicos ou URLs HTTPS. Use `sem-edital`, `em-breve`, `inscricoes-abertas`, `em-andamento`, `inscricoes-encerradas` ou `resultado`. Publique o resultado autorizado em `results` e selecione `resultado`. Use `featured` para o destaque na home.
+- **Avisos.** Configure `notice` no evento ou no edital, ou adicione um aviso geral em `src/data/notices.ts`. Preencha `active`, `text`, `href`, `color` (`red` ou `dark`), `startsAt`, `endsAt` e `priority`. O maior valor de prioridade vence no período em que os avisos se sobrepõem. A data de fim não é inclusiva.
+- **Compartilhamento.** Use `sharing` nos dois arquivos para configurar título, descrição, imagem de `public/images/` e URL pública completa. Aplicativos podem manter versões anteriores em cache após uma alteração.
+- **Instagram e galeria.** Edite o perfil em `institution.instagram` e a composição em `instagramBanner`. Atualize `homeGallery`, `gallery` e `photos` ao organizar imagens e álbuns.
+- **Parceiros.** Cadastre vínculos confirmados em `partners`. Marque `sponsor: true` apenas para patrocínios aprovados. Preencha `partnership.presentationPdf` somente com material institucional liberado para divulgação e revise o e-mail de contato.
 
 Exemplos de pedidos ao Codex:
 
-- “Troque o banner pela foto que anexei e confira o enquadramento em 390 e 1440 px.”
-- “Publique uma notícia sobre esta visita e credite o post do Instagram pelo link que enviei.”
-- “Acrescente a gestão atual e mantenha as anteriores no filtro da equipe.”
-- “Ative a inscrição com este edital público, formulário e data de encerramento.”
+- “Ative este evento, use o banner em anexo e mostre o aviso até a data de encerramento.”
+- “Encerre as inscrições no site e troque o botão pelo edital.”
+- “Divulgue este resultado autorizado e ajuste a mensagem da home.”
+- “Acrescente estas fotos ao álbum de extensão e atualize a composição do Instagram.”
+- “Inclua este parceiro confirmado com link e logotipo.”

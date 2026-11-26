@@ -1,11 +1,8 @@
 ---
 import Inner from '../layouts/Inner.astro'
 import Gallery from '../components/Gallery.astro'
-import Collection from '../components/Collection.astro'
-import { gallery } from '../data/site'
+import { gallery, photos } from '../data/site'
 ---
-<Inner title="Galeria" summary="Registros da equipe Galo de Campina na oficina, nas competições e nas atividades de pesquisa e extensão.">
-  <Collection fields={[{ key: 'category', label: 'Álbum', options: gallery.map(album => album.category) }]}>
-    {gallery.map(album => <section class="content-section" data-category={album.category}><h2>{album.title}</h2><Gallery photos={album.photos} /></section>)}
-  </Collection>
+<Inner title="Galeria" summary="Registros da equipe Galo de Campina na oficina, nas competições e nas atividades de pesquisa e extensão." photo={photos.workshop}>
+  {gallery.map(album => <section class="content-section"><h2>{album.title}</h2><Gallery photos={album.photos} /></section>)}
 </Inner>
