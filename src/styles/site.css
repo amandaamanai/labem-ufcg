@@ -1344,8 +1344,7 @@ dialog .actions {
 a.partner-tile:hover { border-color: var(--red); }
 .partner-tile .image-slot { width: clamp(120px, 14vw, 192px); }
 .partner-tile .image-slot-frame {
-  height: min(128px, 25vw);
-  padding: .5rem;
+  width: 100%;
   border-radius: var(--radius-small);
   background: #f5f4f1;
 }
