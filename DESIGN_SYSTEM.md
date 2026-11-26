@@ -35,6 +35,6 @@ Barlow Condensed 800 compõe títulos de seção e capa. Inter compõe textos, b
 
 ## Fase 3.1
 
-- O banner alterna as fotografias em sete segundos, mantendo título, descrição e botões fixos. A segunda composição preserva o grupo inteiro e o movimento reduzido é respeitado.
+- O banner alterna as fotografias em sete segundos, mantendo título, descrição e botões fixos. A capa da equipe usa uma foto em cores e um gradiente para manter o contraste do texto. No celular, o enquadramento preserva a largura da foto. O movimento reduzido é respeitado.
 - A faixa de parceiros centraliza o título, os cartões de 18 px e o botão. Registre os vínculos autorizados no arquivo de dados.
 - Os subsistemas usam ícones de traço e o bloco do Instagram apresenta uma grade de quatro fotografias.

@@ -16,11 +16,10 @@ const rotating = slides.length > 1
 ---
 <section class="hero banner" data-carousel={rotating ? interval : undefined} aria-label="Apresentação do LABEM" style={{ '--hero-height': content.height }}>
   {slides.map((slide, index) => (
-    <div class:list={['hero-slide', { 'is-active': index === 0 }]} data-hero-slide aria-hidden={index > 0 ? 'true' : undefined} style={{
+    <div class:list={['hero-slide', { 'is-active': index === 0, 'hero-slide-full-background': slide.fullBackground }]} data-hero-slide aria-hidden={index > 0 ? 'true' : undefined} style={{
       '--slide-position': slide.cover?.position,
       '--slide-mobile-position': slide.mobile?.position,
       '--slide-fit': slide.fit,
-      '--slide-inset': slide.safeArea,
       '--slide-overlay': slide.overlay,
     }}>
       <picture class="hero-picture">
