@@ -9,6 +9,8 @@ export default defineConfig({
   base,
   trailingSlash: 'always',
   redirects: {
+    '/engenharia/pdi/': `${prefix}/pdi/`,
+    '/pesquisa/': `${prefix}/pdi/`,
     '/engenharia/marketing/': `${prefix}/engenharia/gestao/`,
     '/engenharia/competicao/': `${prefix}/motostudent/`,
   },

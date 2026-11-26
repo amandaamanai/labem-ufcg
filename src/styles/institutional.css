@@ -1,0 +1,88 @@
+.institutional-section {
+  --inst-accent: #d71420;
+  --inst-ink: #171717;
+  --inst-soft: #fcebec;
+  --inst-line: #dedcdb;
+  --inst-surface: #fff;
+  color: var(--inst-ink);
+}
+
+.institutional-section h2,
+.institutional-section h3 {
+  font-family: var(--body, Inter, sans-serif);
+  line-height: 1.2;
+  letter-spacing: -.02em;
+}
+
+.inner-body .institutional-section h2,
+.inner-body.institutional-section h2 { font-size: clamp(1.65rem, 3.2vw, 2.6rem); margin-block: 0 14px; }
+.institutional-section h3 { font-size: 1.18rem; }
+.institutional-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.institutional-intro { max-width: 76ch; margin-bottom: 24px; }
+.institutional-intro > :last-child { margin-bottom: 0; }
+.institutional-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  list-style: none;
+  padding: 0;
+}
+
+.institutional-grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.institutional-grid--values { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.institutional-card {
+  padding: clamp(20px, 2.1vw, 28px);
+  border: 1px solid var(--inst-line);
+  border-radius: 20px;
+  background: var(--inst-surface);
+}
+
+.institutional-card h3 { margin: 14px 0 0; }
+.institutional-card p { margin: 9px 0 0; color: var(--muted); }
+.institutional-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  flex: none;
+  border-radius: 15px;
+  background: var(--inst-soft);
+  color: var(--inst-accent);
+}
+
+.institutional-grid--compact .institutional-card { padding: 20px; }
+.institutional-grid--values { gap: 12px; }
+.institutional-grid--values .institutional-card {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+
+.institutional-grid--values .institutional-icon {
+  width: auto;
+  height: auto;
+  background: none;
+}
+
+.institutional-separator {
+  margin-top: 30px;
+  padding-top: 27px;
+  border-top: 1px solid var(--inst-line);
+}
+
+@media (max-width: 980px) {
+  .institutional-grid--three,
+  .institutional-grid--values { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 550px) {
+  .institutional-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+}

@@ -43,7 +43,6 @@ const openLogoSlots = Object.keys(imageSlots).filter(id => id.startsWith('PARTNE
           <div class="editorial-intro">
             <p class="eyebrow red-mark">{trajectory.eyebrow}</p>
             <h2>{trajectory.title}</h2>
-            <p>{trajectory.description}</p>
             <a class="text-link" href={url('sobre/#historia')}>Conheça nossa história</a>
           </div>
           <Timeline />
@@ -66,10 +65,10 @@ const openLogoSlots = Object.keys(imageSlots).filter(id => id.startsWith('PARTNE
           <div class="editorial-intro">
             <p class="eyebrow red-mark">Subsistemas</p>
             <h2>Diferentes competências. Um propósito.</h2>
-            <p>Das atividades de fabricação na oficina mecânica da universidade ao desenvolvimento de projetos, pesquisas e ações institucionais, nossos subsistemas integram diferentes conhecimentos e competências para transformar a formação acadêmica em experiência prática.</p>
+            <p>Da oficina à pesquisa, unimos diferentes competências para transformar conhecimento em experiência prática.</p>
           </div>
-          <SubsystemCards />
-          <div class="actions"><a class="button" href={url('projetos/')}>Conheça os projetos</a><a class="text-link" href={url('pesquisa/')}>Produção científica</a></div>
+          <SubsystemCards compact />
+          <div class="actions"><a class="button" href={url('projetos/')}>Conheça os projetos</a><a class="text-link" href={url('pdi/')}>Produção científica</a></div>
         </section>
       )
       case 'oportunidades': return (

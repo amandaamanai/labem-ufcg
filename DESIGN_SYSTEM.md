@@ -38,3 +38,11 @@ Barlow Condensed 800 compõe títulos de seção e capa. Inter compõe textos, b
 - O banner alterna as fotografias em sete segundos, mantendo título, descrição e botões fixos. A capa da equipe usa uma foto em cores e um gradiente para manter o contraste do texto. No celular, o enquadramento preserva a largura da foto. O movimento reduzido é respeitado.
 - A faixa de parceiros centraliza o título, os cartões de 18 px e o botão. Registre os vínculos autorizados no arquivo de dados.
 - Os subsistemas usam ícones de traço e o bloco do Instagram apresenta uma grade de quatro fotografias.
+
+## Fase 4
+
+- A capa pública usa apenas a fotografia original da motocicleta e o botão “Conheça o LABEM”. A capa alternativa e os controles permanecem configuráveis em `src/data/site.ts` e `src/components/Banner.astro`.
+- Em Sobre nós, Equipe e PD&I, os novos componentes usam Inter nas divisões editoriais, ícones vetoriais de traço, vermelho `#D71420`, preto `#171717`, fundo de ícone `#FCEBEC` e bordas neutras de 1 px. Use 20 px de raio em cartões e 24 px nos blocos do organograma. Os ícones têm 28 px e fundos de 15 px de raio quando destacados.
+- Áreas de atuação usam três, duas ou uma coluna. Missão e visão usam duas colunas e empilham no celular. Valores usam quatro, duas ou uma coluna. As categorias de PD&I usam grade de duas colunas, com publicações em cartões horizontais.
+- No organograma, as duas coordenações superiores possuem fundo vermelho e a Coordenação Discente possui fundo preto. A Coordenação de Projeto se distingue dos subsistemas por fundo vermelho suave. Os três blocos passam a uma coluna no celular. A Extensão fica em cartão independente. Edite os dados em `src/data/institutional.ts`.
+- Os cards de subsistemas da home são inteiramente clicáveis. Cada card inclui ícone, título e seta. PD&I vai para a página própria e os demais vão para as âncoras da página Equipe. O rodapé preserva as marcas, o crédito e os nomes institucionais por extenso.

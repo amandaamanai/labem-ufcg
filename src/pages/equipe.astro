@@ -1,15 +1,21 @@
 ---
 import Inner from '../layouts/Inner.astro'
 import Gallery from '../components/Gallery.astro'
+import OrganizationChart from '../components/OrganizationChart.astro'
+import Photo from '../components/Photo.astro'
+import { availablePhoto } from '../utils/images'
 import { governance, photos, team } from '../data/site'
 import { url } from '../utils/urls'
 ---
 <Inner title="Equipe do LABEM" summary="Estudantes e docentes de diferentes áreas desenvolvem um projeto de engenharia em comum na UFCG." photo={photos.team}>
-  <section class="prose-block" id="gestao"><h2>Gestão e frentes de trabalho</h2>
-    {governance.current && <><h3>{governance.current.period}</h3><p>{governance.current.description}</p></>}
-    <p>Estrutura, Powertrain e Elétrica são as frentes técnicas. Gestão reúne a organização administrativa e institucional, Extensão aproxima o laboratório da comunidade e PD&I articula pesquisa e desenvolvimento tecnológico.</p>
-    <a class="text-link" href={url('engenharia/')}>Conheça os subsistemas</a>
-  </section>
+  <OrganizationChart />
+  {governance.current && <section class="content-section" id="integrantes">
+    <h2>Integrantes</h2><h3>{governance.current.period}</h3><p>{governance.current.description}</p>
+    {!!governance.current.members.length && <ul class="records">{governance.current.members.map(member => {
+      const photo = availablePhoto(member.photo)
+      return <li>{photo && <Photo {photo} />}<h3>{member.name}</h3><p>{member.role} · {member.course}</p><p>{member.period ?? governance.current?.period}</p></li>
+    })}</ul>}
+  </section>}
   <section class="content-section" id="professores"><h2>Professores e orientação</h2><ul class="records">{team.map(person => <li><h3>{person.name}</h3><p>{person.role}</p></li>)}</ul></section>
   {!!governance.history.length && <section class="content-section"><h2>Histórico de gestões</h2><ul class="records">{governance.history.map(period => <li><h3>{period.period}</h3><p>{period.description}</p></li>)}</ul></section>}
   <section class="content-section"><h2>Gerações do laboratório</h2><Gallery photos={[photos.historical, photos.competition, photos.team]} /></section>

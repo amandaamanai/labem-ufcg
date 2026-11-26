@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro'
+import InstitutionalCards from '../components/InstitutionalCards.astro'
+import PublicationCard from '../components/PublicationCard.astro'
+import { researchAreas } from '../data/institutional'
+import { projects, publications } from '../data/site'
+import { url } from '../utils/urls'
+const research = projects.filter(project => project.category === 'Pesquisa aplicada')
+---
+<Base title="Pesquisa, Desenvolvimento e Inovação" description="Pesquisa científica e desenvolvimento tecnológico aplicados à engenharia motociclística.">
+  <div class="wrap inner-body institutional-section research-page">
+    <nav class="breadcrumb" aria-label="Localização"><a href={url()}>Início</a></nav>
+    <section id="areas-de-pesquisa" aria-labelledby="pdi-titulo">
+      <header class="institutional-intro">
+        <p class="eyebrow red-mark">Pesquisa, Desenvolvimento e Inovação</p>
+        <h1 id="pdi-titulo">Conhecimento que gera transformação.</h1>
+        <p>Pesquisa científica e desenvolvimento tecnológico aplicados à engenharia motociclística.</p>
+      </header>
+      <InstitutionalCards items={researchAreas} compact />
+    </section>
+    <section class="institutional-separator" id="producoes" aria-labelledby="producoes-titulo">
+      <h2 id="producoes-titulo">Nossas produções científicas</h2>
+      <div class="publication-list">{publications.map(publication => <PublicationCard {publication} />)}</div>
+    </section>
+    <section class="institutional-separator" id="pesquisa-aplicada">
+      <h2>Pesquisa aplicada</h2>
+      <p>A Pesquisa, Desenvolvimento e Inovação integra as atividades do LABEM. Investigamos problemas de engenharia e usamos o conhecimento desenvolvido na universidade para propor, analisar e testar soluções.</p>
+      <ul class="records">
+        {research.map(project => <li>
+          <h3>{project.title}</h3>
+          <p>{project.summary}</p>
+          <a class="text-link" href={url('projetos/' + project.slug + '/')}>Conheça o estudo do amortecedor</a>
+        </li>)}
+      </ul>
+    </section>
+  </div>
+</Base>
+<style>
+  .research-page .breadcrumb { color: var(--muted); }
+  .research-page .institutional-intro { max-width: 960px; }
+  .research-page h1 {
+    margin: 10px 0 16px;
+    font: 750 clamp(2.15rem, 5vw, 3.4rem)/1.08 var(--body);
+    letter-spacing: -.045em;
+  }
+  .research-page p:not(.eyebrow) { color: var(--muted); }
+  .research-page h2 { margin-bottom: 16px; }
+  .publication-list { display: grid; gap: 16px; }
+  #pesquisa-aplicada > p { max-width: 73ch; margin-bottom: 20px; }
+</style>

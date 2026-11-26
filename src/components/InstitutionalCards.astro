@@ -1,0 +1,19 @@
+---
+import InstitutionalIcon from './InstitutionalIcon.astro'
+import '../styles/institutional.css'
+
+type Icon = ComponentProps<typeof InstitutionalIcon>['name']
+import type { ComponentProps } from 'astro/types'
+const { items, layout = 'two', compact = false } = Astro.props as {
+  items: readonly { icon: Icon; title: string; description?: string }[]
+  layout?: 'two' | 'three' | 'values'
+  compact?: boolean
+}
+---
+<ul class:list={['institutional-grid', 'institutional-grid--' + layout, { 'institutional-grid--compact': compact }]}>
+  {items.map(item => <li class="institutional-card">
+    <span class="institutional-icon"><InstitutionalIcon name={item.icon} /></span>
+    {layout === 'values' ? <strong>{item.title}</strong> : <h3>{item.title}</h3>}
+    {item.description && <p>{item.description}</p>}
+  </li>)}
+</ul>

@@ -8,7 +8,7 @@ export type Entry = {
 }
 export const institution = {
   name: 'Laboratório de Engenharia da Motocicleta',
-  affiliation: ['Universidade Federal de Campina Grande — UFCG', 'Centro de Ciências e Tecnologia — CCT', 'Unidade Acadêmica de Engenharia Mecânica — UAEM', 'Campina Grande, Paraíba — Brasil'],
+  affiliation: ['Universidade Federal de Campina Grande', 'Centro de Ciências e Tecnologia', 'Unidade Acadêmica de Engenharia Mecânica', 'Campina Grande, Paraíba — Brasil'],
   email: 'labemuaem@gmail.com',
   instagram: 'https://www.instagram.com/labemufcg/',
   linkedin: 'https://www.linkedin.com/company/labemufcg/',
@@ -22,17 +22,14 @@ export const navigation = [
     { label: 'Professores', href: 'equipe/#professores' }, { label: 'Galeria', href: 'galeria/' },
   ] },
   { label: 'MotoStudent', href: 'motostudent/' },
-  { label: 'Engenharia', href: 'engenharia/', children: [
-    { label: 'Subsistemas', href: 'engenharia/' }, { label: 'Projetos', href: 'projetos/' },
-    { label: 'Produção científica', href: 'pesquisa/' },
-  ] },
+  { label: 'PD&I', href: 'pdi/' },
   { label: 'Oportunidades', href: 'oportunidades/', children: [
     { label: 'Eventos', href: 'eventos/' }, { label: 'Processos seletivos', href: 'faca-parte/' },
   ] },
   { label: 'Parceiros', href: 'parceiros/' },
 ]
 export const quickLinks: Link[] = [
-  { label: 'Equipe', href: 'equipe/' }, { label: 'Produção científica', href: 'pesquisa/' },
+  { label: 'Equipe', href: 'equipe/' }, { label: 'Produção científica', href: 'pdi/' },
   { label: 'Oportunidades', href: 'oportunidades/' }, { label: 'Galeria', href: 'galeria/' },
   { label: 'Contato', href: 'contato/' },
 ]
@@ -46,7 +43,7 @@ export const banner: {
     eyebrow: 'LABEM · UFCG',
     title: ['ENGENHARIA', 'EM DUAS RODAS.'],
     description: 'Transformamos conhecimento em tecnologia, desafios em aprendizado e ideias em movimento.',
-    buttons: [{ label: 'Conheça o LABEM', href: 'sobre/' }, { label: 'Explore os projetos', href: 'projetos/' }],
+    buttons: [{ label: 'Conheça o LABEM', href: 'sobre/' }],
     height: 'clamp(560px, 43vw, 690px)',
   },
   slides: [
@@ -57,7 +54,7 @@ export const banner: {
       fit: 'cover', overlay: .97,
     },
     {
-      id: '02', active: true, caption: 'Fotografia coletiva da equipe LABEM',
+      id: '02', active: false, caption: 'Fotografia coletiva da equipe LABEM',
       desktop: { file: 'equipe.webp', alt: 'Fotografia coletiva dos integrantes do LABEM reunidos na UFCG', position: 'center 56%' },
       mobile: { file: 'hero-equipe-colorida-mobile.webp', alt: 'Fotografia coletiva dos integrantes do LABEM reunidos na UFCG', position: 'center 75%' },
       fit: 'cover', fullBackground: true,
@@ -129,7 +126,7 @@ export const engineering: (Entry & { slot: string })[] = [
   ] },
   { slug: 'pdi', slot: 'SUBSISTEMA-PDI', title: 'PD&I', category: 'Pesquisa, Desenvolvimento e Inovação', summary: 'A área de Pesquisa, Desenvolvimento e Inovação atua na integração entre conhecimento científico, engenharia aplicada e desenvolvimento tecnológico, contribuindo para estudos, projetos multidisciplinares e produção acadêmica relacionada à engenharia motociclística.', sections: [
     { title: 'Pesquisa aplicada', text: 'Conheça os trabalhos científicos e os projetos de engenharia já documentados pelo laboratório.' },
-  ], links: [{ label: 'Produção científica', href: 'pesquisa/' }, { label: 'Projetos', href: 'projetos/' }] },
+  ], links: [{ label: 'Produção científica', href: 'pdi/' }, { label: 'Projetos', href: 'projetos/' }] },
 ]
 export const projects: Entry[] = [
   { slug: 'prototipo-de-motovelocidade', title: 'Protótipo de motovelocidade', category: 'Motocicleta', status: 'Protótipo apresentado', summary: 'Uma motocicleta desenvolvida na UFCG para aplicar, em um mesmo projeto, engenharia, fabricação e testes.', photo: photos.prototype, gallery: [photos.fair, photos.workshop], sections: [
@@ -161,7 +158,19 @@ export const news: Entry[] = [
     { title: 'Participação na quinta edição', text: 'Segundo o CCT, a equipe apresentou e defendeu o trabalho técnico na fase teórica. O protótipo não viajou com o grupo.' },
   ], links: [{ label: 'Leia no CCT/UFCG', href: sources.aragon }] },
 ]
-export const publications = [
+export type Publication = {
+  title: string
+  authors: string
+  year: string
+  category: string
+  summary: string
+  venue?: string
+  doi?: string
+  officialUrl?: string
+  document?: string
+  photo?: Photo
+}
+export const publications: Publication[] = [
   { title: 'Projeto, fabricação e teste de uma motocicleta de motovelocidade', authors: 'Maria Clara Pires Leitão de Souza, Daniel Anacleto, Lucas Kennedy Alves Araújo, Ruan Eduardo Carneiro Lucas e Wanderley Ferreira de Amorim Júnior', year: '2025', category: 'Artigo em congresso', venue: '25º CONEMI e 3ª FENAMEC', doi: '10.29327/27644294.1249226', summary: 'Trabalho sobre as etapas de projeto, fabricação e testes de uma motocicleta de motovelocidade.' },
 ]
 export const team = [
@@ -170,14 +179,14 @@ export const team = [
   { name: 'Ruan Eduardo Carneiro Lucas', role: 'Coordenação do LABEM Conecta', area: 'Extensão', period: 'Registro institucional' },
 ]
 export const governance: {
-  current?: { period: string; description: string }
+  current?: { period: string; description: string; members: { name: string; role: string; course: string; period?: string; photo?: Photo }[] }
   history: { period: string; description: string }[]
 } = { history: [] }
 
 export const partnership: { presentationPdf?: string; email: string } = { email: institution.email }
 export const partners: { name: string; category: 'Vínculo institucional' | 'Parceria' | 'Parceria tecnológica' | 'Patrocínio' | 'Apoio'; description: string; logo?: string; logoSlot?: string; href?: string }[] = [
-  { name: 'JM2 Eletec', category: 'Parceria', description: 'Parceiro do LABEM.', logoSlot: 'PARTNER-LOGO-01' },
-  { name: 'LEMT', category: 'Parceria', description: 'Laboratório Experimental de Máquinas Térmicas da UFCG.', logoSlot: 'PARTNER-LOGO-02', href: 'https://uaem.ufcg.edu.br/lemt' },
+  { name: 'JM2 Eletec', category: 'Parceria', description: 'Parceiro do LABEM.', logo: 'parceiro-01.svg', logoSlot: 'PARTNER-LOGO-01' },
+  { name: 'LEMT', category: 'Parceria', description: 'Laboratório Experimental de Máquinas Térmicas da UFCG.', logo: 'parceiro-02.svg', logoSlot: 'PARTNER-LOGO-02', href: 'https://uaem.ufcg.edu.br/lemt' },
   { name: 'Universidade Federal de Campina Grande', category: 'Vínculo institucional', description: 'Universidade à qual o projeto está vinculado, por meio do Centro de Ciências e Tecnologia.', href: institution.university },
 ]
 export const gallery = [
