@@ -36,18 +36,33 @@ export const quickLinks: Link[] = [
   { label: 'Oportunidades', href: 'oportunidades/' }, { label: 'Galeria', href: 'galeria/' },
   { label: 'Contato', href: 'contato/' },
 ]
-export const banner = {
-  carousel: false,
-  interval: 8000,
-  slides: [{
-    image: 'banner.webp', mobile: 'banner-mobile.webp',
+export const banner: {
+  interval: number
+  content: { eyebrow: string; title: [string, string]; description: string; buttons: Link[]; height: string }
+  slides: { id: '01' | '02'; active: boolean; desktop?: Photo; mobile?: Photo; caption: string; fit?: 'cover' | 'contain'; overlay?: number; safeArea?: string }[]
+} = {
+  interval: 7000,
+  content: {
     eyebrow: 'LABEM · UFCG',
     title: ['ENGENHARIA', 'EM DUAS RODAS.'],
     description: 'Transformamos conhecimento em tecnologia, desafios em aprendizado e ideias em movimento.',
     buttons: [{ label: 'Conheça o LABEM', href: 'sobre/' }, { label: 'Explore os projetos', href: 'projetos/' }],
-    caption: 'PROTÓTIPO DE MOTOVELOCIDADE · LABEM UFCG',
-    align: 'left', position: 'right 56%', overlay: '.23', height: 'clamp(560px, 43vw, 690px)',
-  }],
+    height: 'clamp(560px, 43vw, 690px)',
+  },
+  slides: [
+    {
+      id: '01', active: true, caption: 'Protótipo de motovelocidade · LABEM UFCG',
+      desktop: { file: 'banner.webp', alt: 'Protótipo de motovelocidade do LABEM', position: 'right 56%' },
+      mobile: { file: 'banner-mobile.webp', alt: 'Protótipo de motovelocidade do LABEM', position: 'right bottom' },
+      fit: 'cover', overlay: .97,
+    },
+    {
+      id: '02', active: true, caption: 'Fotografia coletiva da equipe LABEM',
+      desktop: { file: 'hero-equipe.webp', alt: 'Fotografia coletiva dos integrantes do LABEM reunidos na UFCG', position: 'center' },
+      mobile: { file: 'hero-equipe-mobile.webp', alt: 'Fotografia coletiva dos integrantes do LABEM reunidos na UFCG', position: 'center bottom' },
+      fit: 'contain', safeArea: '47%', overlay: .85,
+    },
+  ],
 }
 export const homeSections = ['parceiros', 'historia', 'competicao', 'engenharia', 'oportunidades', 'instagram', 'apoio'] as const
 export const trajectory = {
@@ -86,7 +101,7 @@ export const instagramBanner = {
   description: 'Conheça nossos projetos, eventos, conquistas e bastidores. Acompanhe de perto as atividades do LABEM.',
   button: 'Visite nosso Instagram',
   href: institution.instagram,
-  slots: ['INSTAGRAM-01', 'INSTAGRAM-02'],
+  slots: ['INSTAGRAM-01', 'INSTAGRAM-02', 'INSTAGRAM-03', 'INSTAGRAM-04'],
 }
 export const motoStudent2018 = 'Em 2018, a equipe Galo de Campina apresentou seu projeto na fase teórica da quinta MotoStudent, em Aragón. Como a motocicleta não viajou para a Espanha, a equipe não participou das provas de pista.'
 export const timeline: { year?: string; title: string; text: string; source?: Link; slot?: string }[] = [
@@ -160,7 +175,9 @@ export const governance: {
 } = { history: [] }
 
 export const partnership: { presentationPdf?: string; email: string } = { email: institution.email }
-export const partners: { name: string; category: 'Vínculo institucional' | 'Parceria tecnológica' | 'Patrocínio' | 'Apoio'; description: string; logo?: string; logoSlot?: string; href?: string }[] = [
+export const partners: { name: string; category: 'Vínculo institucional' | 'Parceria' | 'Parceria tecnológica' | 'Patrocínio' | 'Apoio'; description: string; logo?: string; logoSlot?: string; href?: string }[] = [
+  { name: 'JM2 Eletec', category: 'Parceria', description: 'Parceiro do LABEM.', logoSlot: 'PARTNER-LOGO-01' },
+  { name: 'LEMT', category: 'Parceria', description: 'Laboratório Experimental de Máquinas Térmicas da UFCG.', logoSlot: 'PARTNER-LOGO-02', href: 'https://uaem.ufcg.edu.br/lemt' },
   { name: 'Universidade Federal de Campina Grande', category: 'Vínculo institucional', description: 'Universidade à qual o projeto está vinculado, por meio do Centro de Ciências e Tecnologia.', href: institution.university },
 ]
 export const gallery = [

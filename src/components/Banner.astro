@@ -1,30 +1,50 @@
 ---
 import ImageLabel from './ImageLabel.astro'
-import { bannerSlots } from '../data/imageSlots'
+import { imageMap } from '../data/imageSlots'
 import { availablePhoto } from '../utils/images'
 import { banner } from '../data/site'
 import { url } from '../utils/urls'
+
+const { content, interval } = banner
+const configured = banner.slides.map(slide => {
+  const mobile = availablePhoto(slide.mobile)
+  const cover = availablePhoto(slide.desktop) ?? mobile
+  return { ...slide, cover, mobile }
+}).slice(0, 2)
+const slides = configured.filter(slide => slide.active && slide.cover)
+const rotating = slides.length > 1
 ---
-<div class="banner" data-carousel={banner.carousel && banner.slides.length > 1 ? banner.interval : undefined}>
-  {banner.slides.map((slide, index) => {
-    const desktop = availablePhoto(slide.image ? { file: slide.image, alt: '' } : undefined)
-    const mobile = availablePhoto(slide.mobile ? { file: slide.mobile, alt: '' } : undefined)
-    const cover = desktop ?? mobile
-    return (
-    <section class="hero" hidden={index > 0} style={`--hero-height:${slide.height};--hero-position:${slide.position};--hero-overlay:${slide.overlay};--hero-align:${slide.align}`}>
-      {cover && <picture class="hero-picture">
-        {mobile && <source media="(max-width: 650px)" srcset={url('images/' + mobile.file)} />}
-        <img src={url('images/' + cover.file)} alt="" fetchpriority={index === 0 ? 'high' : 'auto'} loading={index === 0 ? 'eager' : 'lazy'} />
-      </picture>}
-      {index === 0 && <ImageLabel {...bannerSlots('HERO')} />}
-      <div class="wrap hero-content">
-        <p class="eyebrow"><span></span>{slide.eyebrow}</p>
-        {index === 0 ? <h1>{slide.title[0]}<br /><em>{slide.title[1]}</em></h1> : <h2 class="hero-title">{slide.title[0]}<br /><em>{slide.title[1]}</em></h2>}
-        <p class="hero-description">{slide.description}</p>
-        <div class="actions">{slide.buttons.map((button, i) => <a class:list={['button', { outline: i > 0 }]} href={url(button.href)}>{button.label}</a>)}</div>
-      </div>
-      {cover && slide.caption && <div class="wrap hero-caption"><span>{slide.caption}</span></div>}
-    </section>
-  )})}
-  {banner.carousel && banner.slides.length > 1 && <div class="carousel-controls wrap" hidden><button class="button outline small" type="button" data-slide-prev>Anterior</button><button class="button outline small" type="button" data-slide-pause>Pausar</button><button class="button outline small" type="button" data-slide-next>Próximo</button></div>}
-</div>
+<section class="hero banner" data-carousel={rotating ? interval : undefined} aria-label="Apresentação do LABEM" style={{ '--hero-height': content.height }}>
+  {slides.map((slide, index) => (
+    <div class:list={['hero-slide', { 'is-active': index === 0 }]} data-hero-slide aria-hidden={index > 0 ? 'true' : undefined} style={{
+      '--slide-position': slide.cover?.position,
+      '--slide-mobile-position': slide.mobile?.position,
+      '--slide-fit': slide.fit,
+      '--slide-inset': slide.safeArea,
+      '--slide-overlay': slide.overlay,
+    }}>
+      <picture class="hero-picture">
+        {slide.mobile && <source media="(max-width: 650px)" srcset={url('images/' + slide.mobile.file)} />}
+        <img src={url('images/' + slide.cover!.file)} alt={slide.cover!.alt} fetchpriority={index === 0 ? 'high' : 'auto'} decoding="async" />
+      </picture>
+      <ImageLabel id={`HERO-DESKTOP-${slide.id}`} mobileId={`HERO-MOBILE-${slide.id}`} label={slide.caption} />
+      <div class="wrap hero-caption"><span>{slide.caption}</span></div>
+    </div>
+  ))}
+  <div class="wrap hero-content">
+    <p class="eyebrow"><span></span>{content.eyebrow}</p>
+    <h1>{content.title[0]}<br /><em>{content.title[1]}</em></h1>
+    <p class="hero-description">{content.description}</p>
+    <div class="actions">{content.buttons.map((button, index) => <a class:list={['button', { outline: index > 0 }]} href={url(button.href)}>{button.label}</a>)}</div>
+  </div>
+  {imageMap && configured.some(slide => slide.id === '02' && (!slide.active || !slide.cover)) && <div class="hero-future-slot"><ImageLabel id="HERO-DESKTOP-02" mobileId="HERO-MOBILE-02" label="Fotografia coletiva" /></div>}
+  {rotating && (
+    <div class="carousel-controls" role="group" aria-label="Controles das fotografias do banner" hidden>
+      <button type="button" data-slide-prev aria-label="Foto anterior"><span aria-hidden="true">‹</span></button>
+      {slides.map((slide, index) => <button class="carousel-dot" type="button" data-slide-index={index} aria-label={`Foto ${index + 1}: ${slide.caption}`} aria-current={index === 0 ? 'true' : undefined}><span></span></button>)}
+      <button type="button" data-slide-next aria-label="Próxima foto"><span aria-hidden="true">›</span></button>
+      <button type="button" data-slide-pause>Pausar</button>
+      <span class="carousel-status" role="status"></span>
+    </div>
+  )}
+</section>

@@ -60,7 +60,7 @@ jobs:
           async function capture() {
             const browser = await chromium.launch({ executablePath: process.env.LABEM_PREVIEW_CHROME })
             try {
-              const page = await browser.newPage()
+              const page = await browser.newPage({ reducedMotion: 'reduce' })
               await page.goto(pathToFileURL(resolve('previa-offline/index.html')).href)
               assert.match(await page.title(), /LABEM UFCG/)
               await page.getByRole('link', { name: 'Galeria', exact: true }).last().click()
@@ -84,6 +84,16 @@ jobs:
                   })
                   await page.screenshot({ path: `capturas/${name}-${width}.png`, fullPage: true })
                   if (name === 'home') {
+                    const hero = page.locator('.hero')
+                    await hero.screenshot({ path: `capturas/hero-01-${width}.png` })
+                    const next = hero.getByRole('button', { name: 'Próxima foto' })
+                    if (await next.isVisible()) {
+                      await next.click()
+                      await hero.locator('[data-hero-slide]').nth(1).evaluate(el => {
+                        if (el.getAttribute('aria-hidden') !== 'false') throw new Error('O segundo slide não abriu.')
+                      })
+                      await hero.screenshot({ path: `capturas/hero-02-${width}.png` })
+                    }
                     for (const section of ['parceiros', 'historia', 'competicao', 'engenharia', 'instagram']) {
                       await page.locator('#' + section).screenshot({ path: `capturas/${section}-${width}.png` })
                     }
