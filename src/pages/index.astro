@@ -15,7 +15,7 @@ const event = getEvent()
 const showEvent = event?.active && event.featured
 const showSelection = recruitment.status !== 'sem-edital' && recruitment.featured
 const socialSlots = instagramBanner.slots.map(id => imageSlots[id]).filter(slot => imageMap || availablePhoto(slot.photo) || availablePhoto(slot.mobile))
-const openLogoSlots = ['PARTNER-LOGO-01', 'PARTNER-LOGO-02'].filter(id => !partners.some(partner => partner.logoSlot === id))
+const openLogoSlots = Object.keys(imageSlots).filter(id => id.startsWith('PARTNER-LOGO-') && !partners.some(partner => partner.logoSlot === id))
 ---
 <Base>
   <Banner />
@@ -24,7 +24,7 @@ const openLogoSlots = ['PARTNER-LOGO-01', 'PARTNER-LOGO-02'].filter(id => !partn
       case 'parceiros': return (
         <section class="partner-band" id="parceiros">
           <div class="wrap partner-band-inner">
-            <div><p class="eyebrow red-mark">Engenharia construída em conjunto</p><h2>Quem acredita no nosso projeto</h2><p>Parcerias que impulsionam a pesquisa, a inovação e a formação de futuros profissionais.</p></div>
+            <div class="partner-band-heading"><h2>Quem acredita no nosso projeto</h2><p>Parcerias que impulsionam a pesquisa, a inovação e a formação de futuros profissionais.</p></div>
             <ul class="partner-strip">
               {partners.map(partner => {
                 const logo = availablePhoto(partner.logo ? { file: partner.logo, alt: partner.name } : undefined)
@@ -34,6 +34,7 @@ const openLogoSlots = ['PARTNER-LOGO-01', 'PARTNER-LOGO-02'].filter(id => !partn
               })}
               {imageMap && openLogoSlots.map(id => <li class="partner-tile"><ImageSlot media={imageSlots[id]} /></li>)}
             </ul>
+            <a class="button dark-outline" href={url('parceiros/')}>Conheça nossos parceiros</a>
           </div>
         </section>
       )

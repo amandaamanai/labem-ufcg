@@ -1,14 +1,17 @@
 ---
+import SubsystemIcon from './SubsystemIcon.astro'
 import ImageSlot from './ImageSlot.astro'
-import { engineering } from '../data/site'
 import { imageSlots } from '../data/imageSlots'
+import { availablePhoto } from '../utils/images'
+import { engineering } from '../data/site'
 import { url } from '../utils/urls'
 ---
 <ul class="subsystem-grid">
   {engineering.map(entry => <li>
     <a class="subsystem-card" href={url(`engenharia/${entry.slug}/`)}>
-      <ImageSlot media={imageSlots[entry.slot]} />
+      {(availablePhoto(imageSlots[entry.slot].photo) || availablePhoto(imageSlots[entry.slot].mobile)) && <ImageSlot media={imageSlots[entry.slot]} />}
       <div class="subsystem-copy">
+        <SubsystemIcon name={entry.slug} />
         <h3>{entry.title}</h3>
         <p>{entry.slug === 'pdi' ? entry.category : entry.summary}</p>
         <span class="text-link">Conheça o subsistema</span>

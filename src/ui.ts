@@ -102,37 +102,61 @@ document.querySelectorAll<HTMLButtonElement>('[data-share]').forEach(button => {
 })
 
 document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(carousel => {
-  const slides = [...carousel.querySelectorAll<HTMLElement>('.hero')]
+  const slides = [...carousel.querySelectorAll<HTMLElement>('[data-hero-slide]')]
   const controls = carousel.querySelector<HTMLElement>('.carousel-controls')
   const pause = controls?.querySelector<HTMLButtonElement>('[data-slide-pause]')
+  const dots = [...carousel.querySelectorAll<HTMLButtonElement>('[data-slide-index]')]
+  const status = controls?.querySelector<HTMLElement>('[role="status"]')
   const delay = Number(carousel.dataset.carousel)
-  if (slides.length < 2 || !controls || !pause || delay < 1000) return
-  const preference = matchMedia('(prefers-reduced-motion: reduce)')
+  if (slides.length < 2 || !controls || !pause || !Number.isFinite(delay) || delay < 1000) return
+
+  const motion = matchMedia('(prefers-reduced-motion: reduce)')
   let index = 0
-  let paused = preference.matches
+  let paused = motion.matches
   let timer: number | undefined
-  const show = (next: number) => {
-    slides[index].hidden = true
+
+  function show(next: number, announce = false) {
     index = (next + slides.length) % slides.length
-    slides[index].hidden = false
+    slides.forEach((slide, position) => {
+      slide.classList.toggle('is-active', position === index)
+      slide.setAttribute('aria-hidden', String(position !== index))
+    })
+    dots.forEach((dot, position) => {
+      if (position === index) dot.setAttribute('aria-current', 'true')
+      else dot.removeAttribute('aria-current')
+    })
+    if (announce && status) status.textContent = `Foto ${index + 1} de ${slides.length}`
   }
-  const schedule = () => {
+
+  function schedule() {
     window.clearTimeout(timer)
-    pause.textContent = paused ? 'Reproduzir' : 'Pausar'
+    if (pause) pause.textContent = paused ? 'Reproduzir' : 'Pausar'
     if (!paused && !document.hidden && !carousel.matches(':hover, :focus-within')) {
       timer = window.setTimeout(() => { show(index + 1); schedule() }, delay)
     }
   }
+
+  function move(next: number) {
+    show(next, true)
+    schedule()
+  }
+
   controls.hidden = false
-  controls.querySelector('[data-slide-prev]')?.addEventListener('click', () => { show(index - 1); schedule() })
-  controls.querySelector('[data-slide-next]')?.addEventListener('click', () => { show(index + 1); schedule() })
+  controls.querySelector('[data-slide-prev]')?.addEventListener('click', () => move(index - 1))
+  controls.querySelector('[data-slide-next]')?.addEventListener('click', () => move(index + 1))
+  dots.forEach((dot, position) => dot.addEventListener('click', () => move(position)))
   pause.addEventListener('click', () => { paused = !paused; schedule() })
+  controls.addEventListener('keydown', event => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
+    event.preventDefault()
+    move(index + (event.key === 'ArrowLeft' ? -1 : 1))
+  })
   carousel.addEventListener('pointerenter', schedule)
   carousel.addEventListener('pointerleave', schedule)
   carousel.addEventListener('focusin', schedule)
   carousel.addEventListener('focusout', () => window.setTimeout(schedule, 0))
   document.addEventListener('visibilitychange', schedule)
-  preference.addEventListener('change', () => { paused = preference.matches; schedule() })
+  motion.addEventListener('change', () => { paused = motion.matches; schedule() })
   schedule()
 })
 

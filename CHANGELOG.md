@@ -1,5 +1,11 @@
 # Histórico de versões
 
+## 0.3.1
+
+- Faixa de parceiros centralizada com JM2 Eletec e LEMT cadastrados.
+- Capa rotativa com fotografia coletiva recuperada do acervo, controles de navegação e mensagem fixa.
+- Ícones nos subsistemas, quatro fotografias no Instagram e catálogo de imagens atualizado.
+
 ## 0.3.0
 
 - Nova composição institucional da home, com faixa de parceiros, trajetória, subsistemas, chamadas para participação e Instagram.

@@ -1,0 +1,12 @@
+---
+const { name } = Astro.props as { name: string }
+const paths: Record<string, string> = {
+  estrutura: 'M4 5h16v14H4z M4 5l16 14 M20 5L4 19',
+  powertrain: 'M3 9h4l3-3h7v3h4v8h-4l-2 2H8l-2-3H3z M6 4h8 M10 4v2 M1 9v7',
+  eletrica: 'M13 2 4 14h7l-1 8 10-12h-7z',
+  gestao: 'M9 4H6a2 2 0 0 0-2 2v14h16V6a2 2 0 0 0-2-2h-3 M9 3h6v4H9z M8 12h8 M8 16h8',
+  extensao: 'M3 12h4l10-5v12L7 15H3z M7 15l2 5h3l-2-4 M20 10l2-2 M20 15l2 2',
+  pdi: 'M9 3h6 M10 3v7l-5 8a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-8V3 M8 15h8',
+}
+---
+{paths[name] && <span class="subsystem-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d={paths[name]} /></svg></span>}

@@ -4,7 +4,7 @@ A maioria das mudanças editoriais é feita em `src/data/site.ts`. Execute `npm 
 
 | Para editar | Onde e como |
 | --- | --- |
-| Capa | Envie as versões desktop e celular para `public/images/`. Em `banner.slides`, edite arquivos, título em duas linhas, descrição, legenda, botões, altura, alinhamento, posição e sobreposição. Reordene o array e ative `carousel` com pelo menos dois slides para alternar a capa. `interval` usa milissegundos. |
+| Capa | Configure a mensagem fixa em `banner.content`, o intervalo em `banner.interval` e até duas fotos em `banner.slides`. Cada foto admite `desktop`, `mobile`, `active`, `fit`, `overlay` e `safeArea`. Os arquivos ficam em `public/images/`. |
 | Cores e fontes | Edite as propriedades no começo de `src/styles/site.css`. Coloque fontes licenciadas em `src/assets/` e atualize `@font-face`. |
 | Menu e rodapé | Reordene, adicione ou retire itens em `navigation` e `quickLinks`. Itens com `children` exibem submenu. |
 | Seções da home | Reordene ou retire chaves de `homeSections`. O conteúdo específico de cada bloco está em `src/pages/index.astro`. |
@@ -28,7 +28,7 @@ Edite `timeline` em `src/data/site.ts` para adicionar um acontecimento. Informe 
 - **Edital e resultados.** Em `src/data/recruitment.ts`, configure edição, ano, capa, título, descrição, requisitos, vagas, cronograma e etapas. Preencha `noticePdf` e `documents` com caminhos de arquivos públicos ou URLs HTTPS. Use `sem-edital`, `em-breve`, `inscricoes-abertas`, `em-andamento`, `inscricoes-encerradas` ou `resultado`. Publique o resultado autorizado em `results` e selecione `resultado`. Use `featured` para o destaque na home.
 - **Avisos.** Configure `notice` no evento ou no edital, ou adicione um aviso geral em `src/data/notices.ts`. Preencha `active`, `text`, `href`, `color` (`red` ou `dark`), `startsAt`, `endsAt` e `priority`. O maior valor de prioridade vence no período em que os avisos se sobrepõem. A data de fim não é inclusiva.
 - **Compartilhamento.** Use `sharing` nos dois arquivos para configurar título, descrição, imagem de `public/images/` e URL pública completa. Aplicativos podem manter versões anteriores em cache após uma alteração.
-- **Instagram e galeria.** Edite o perfil em `institution.instagram` e a composição em `instagramBanner`. Atualize `gallery` e `photos` para os álbuns. Configure `INSTAGRAM-01` e `INSTAGRAM-02` em `imageSlots.ts`.
+- **Instagram e galeria.** Edite o perfil em `institution.instagram` e a composição em `instagramBanner`. Atualize `gallery` e `photos` para os álbuns. Configure os espaços `INSTAGRAM-01` a `INSTAGRAM-04` em `imageSlots.ts`.
 - **Parceiros.** Cadastre vínculos confirmados em `partners`. Escolha `category` de acordo com o vínculo confirmado. Use `Patrocínio` apenas para empresas aprovadas e `logoSlot` para identificar uma reserva. Preencha `partnership.presentationPdf` somente com material institucional liberado para divulgação e revise o e-mail de contato.
 
 Exemplos de pedidos ao Codex:

@@ -32,3 +32,9 @@ Barlow Condensed 800 compõe títulos de seção e capa. Inter compõe textos, b
 - Use caixa corrente nos títulos editoriais. Preserve a caixa alta na capa e na chamada da MotoStudent. Mantenha Barlow Condensed nos títulos e Inter nos textos.
 - O acolhimento institucional dá lugar à faixa de parceiros no início da home. A trajetória ocupa cartões conectados, em duas colunas no desktop e em linha vertical no celular. Os subsistemas usam grade de três, duas e uma coluna.
 - Os espaços editoriais são definidos em `src/data/imageSlots.ts`. Os códigos aparecem na revisão com `PUBLIC_IMAGE_MAP=1`. Consulte o [guia de imagens](GUIA_DE_IMAGENS.md) antes de editar enquadramentos e proporções.
+
+## Fase 3.1
+
+- O banner alterna as fotografias em sete segundos, mantendo título, descrição e botões fixos. A segunda composição preserva o grupo inteiro e o movimento reduzido é respeitado.
+- A faixa de parceiros centraliza o título, os cartões de 18 px e o botão. Registre os vínculos autorizados no arquivo de dados.
+- Os subsistemas usam ícones de traço e o bloco do Instagram apresenta uma grade de quatro fotografias.
