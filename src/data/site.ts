@@ -39,7 +39,7 @@ export const quickLinks: Link[] = [
 export const banner: {
   interval: number
   content: { eyebrow: string; title: [string, string]; description: string; buttons: Link[]; height: string }
-  slides: { id: '01' | '02'; active: boolean; desktop?: Photo; mobile?: Photo; caption: string; fit?: 'cover' | 'contain'; overlay?: number; safeArea?: string }[]
+  slides: { id: '01' | '02'; active: boolean; desktop?: Photo; mobile?: Photo; caption: string; fit?: 'cover' | 'contain'; overlay?: number; fullBackground?: boolean }[]
 } = {
   interval: 7000,
   content: {
@@ -58,9 +58,9 @@ export const banner: {
     },
     {
       id: '02', active: true, caption: 'Fotografia coletiva da equipe LABEM',
-      desktop: { file: 'hero-equipe.webp', alt: 'Fotografia coletiva dos integrantes do LABEM reunidos na UFCG', position: 'center' },
-      mobile: { file: 'hero-equipe-mobile.webp', alt: 'Fotografia coletiva dos integrantes do LABEM reunidos na UFCG', position: 'center bottom' },
-      fit: 'contain', safeArea: '47%', overlay: .85,
+      desktop: { file: 'equipe.webp', alt: 'Fotografia coletiva dos integrantes do LABEM reunidos na UFCG', position: 'center 56%' },
+      mobile: { file: 'hero-equipe-colorida-mobile.webp', alt: 'Fotografia coletiva dos integrantes do LABEM reunidos na UFCG', position: 'center 75%' },
+      fit: 'cover', fullBackground: true,
     },
   ],
 }
