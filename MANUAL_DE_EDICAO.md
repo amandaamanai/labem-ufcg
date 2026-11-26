@@ -11,10 +11,14 @@ A maioria das mudanças editoriais é feita em `src/data/site.ts`. Execute `npm 
 | Fotografias | Salve WebP em `public/images/` e registre `file`, `alt` e, opcionalmente, `position` em `photos`. Inclua a referência no álbum de `gallery` ou na entrada correspondente. |
 | Equipe e gestões | Atualize `governance.current` e `governance.history` com períodos e descrições autorizados. Os registros de orientação ficam em `team`. |
 | Projetos e arquivo histórico | Adicione uma entrada em `projects` ou no arquivo `news` com um `slug` único, título, categoria, resumo e seções. Inclua capa, data ISO, autor, galeria, links e itens relacionados conforme os dados disponíveis. O build gera a URL. |
-| Engenharia | Adicione um subsistema em `engineering`. O mesmo registro alimenta a lista e a página individual. |
+| Engenharia | Edite `engineering` e vincule cada card a um espaço em `imageSlots.ts`. Mantenha Estrutura, Powertrain, Elétrica, Gestão, Extensão e PD&I. |
 | Patrocínio ou parceria | Adicione um registro autorizado em `partners` com categoria, descrição, site e logotipo. Confirme a natureza do vínculo e aprove o material público antes de incluir cotas ou PDFs. |
 | Produção científica | Registre título oficial, autores, ano, tipo, evento, resumo e DOI em `publications`. Confira nos anais ou no repositório institucional. |
 | Nova página | Crie um arquivo `.astro` em `src/pages/`, use o layout `Inner` e inclua o caminho no menu se necessário. |
+
+## História e espaços de imagens
+
+Edite `timeline` em `src/data/site.ts` para adicionar um acontecimento. Informe então ano, título, descrição e fonte confirmada. Configure `slot` para associar uma fotografia em `src/data/imageSlots.ts`. O [Guia de imagens](GUIA_DE_IMAGENS.md) informa os nomes e tamanhos. Os códigos ficam disponíveis na prévia quando o build roda com `PUBLIC_IMAGE_MAP=1`.
 
 ## Eventos, inscrições e editais
 
@@ -24,8 +28,8 @@ A maioria das mudanças editoriais é feita em `src/data/site.ts`. Execute `npm 
 - **Edital e resultados.** Em `src/data/recruitment.ts`, configure edição, ano, capa, título, descrição, requisitos, vagas, cronograma e etapas. Preencha `noticePdf` e `documents` com caminhos de arquivos públicos ou URLs HTTPS. Use `sem-edital`, `em-breve`, `inscricoes-abertas`, `em-andamento`, `inscricoes-encerradas` ou `resultado`. Publique o resultado autorizado em `results` e selecione `resultado`. Use `featured` para o destaque na home.
 - **Avisos.** Configure `notice` no evento ou no edital, ou adicione um aviso geral em `src/data/notices.ts`. Preencha `active`, `text`, `href`, `color` (`red` ou `dark`), `startsAt`, `endsAt` e `priority`. O maior valor de prioridade vence no período em que os avisos se sobrepõem. A data de fim não é inclusiva.
 - **Compartilhamento.** Use `sharing` nos dois arquivos para configurar título, descrição, imagem de `public/images/` e URL pública completa. Aplicativos podem manter versões anteriores em cache após uma alteração.
-- **Instagram e galeria.** Edite o perfil em `institution.instagram` e a composição em `instagramBanner`. Atualize `homeGallery`, `gallery` e `photos` ao organizar imagens e álbuns.
-- **Parceiros.** Cadastre vínculos confirmados em `partners`. Marque `sponsor: true` apenas para patrocínios aprovados. Preencha `partnership.presentationPdf` somente com material institucional liberado para divulgação e revise o e-mail de contato.
+- **Instagram e galeria.** Edite o perfil em `institution.instagram` e a composição em `instagramBanner`. Atualize `gallery` e `photos` para os álbuns. Configure `INSTAGRAM-01` e `INSTAGRAM-02` em `imageSlots.ts`.
+- **Parceiros.** Cadastre vínculos confirmados em `partners`. Escolha `category` de acordo com o vínculo confirmado. Use `Patrocínio` apenas para empresas aprovadas e `logoSlot` para identificar uma reserva. Preencha `partnership.presentationPdf` somente com material institucional liberado para divulgação e revise o e-mail de contato.
 
 Exemplos de pedidos ao Codex:
 

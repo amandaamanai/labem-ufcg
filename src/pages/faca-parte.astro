@@ -11,7 +11,7 @@ const canRegister = selection.status === 'inscricoes-abertas' && !!formLinks(sel
 const showResults = selection.status === 'resultado' && !!selection.results?.length
 const edition = [selection.edition, selection.year].filter(Boolean).join(' · ')
 ---
-<Inner title={selection.title} summary={selection.description} photo={selection.banner ?? photos.team} mobilePhoto={selection.mobileBanner} sharing={active ? selection.sharing : undefined}>
+<Inner imageGroup="PROCESSO-SELETIVO" title={selection.title} summary={selection.description} photo={selection.banner ?? photos.team} mobilePhoto={selection.mobileBanner} sharing={active ? selection.sharing : undefined}>
   <section class="content-section recruitment-intro">
     <p class="eyebrow red-mark">Processo seletivo{active && edition && ` · ${edition}`}</p>
     <h2>{recruitmentStatus}</h2>

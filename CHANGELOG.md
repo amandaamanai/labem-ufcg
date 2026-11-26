@@ -1,5 +1,12 @@
 # Histórico de versões
 
+## 0.3.0
+
+- Nova composição institucional da home, com faixa de parceiros, trajetória, subsistemas, chamadas para participação e Instagram.
+- Sistema de bordas, cartões de engenharia, linha do tempo responsiva e rodapé com UFCG, CCT e UAEM.
+- Gestão e PD&I entram na estrutura. Endereços antigos de Marketing e Competição redirecionam.
+- Guia e catálogo de imagens, com marcações e capturas exclusivas da prévia.
+
 ## 0.2.0
 
 - Home institucional com navegação simplificada, história, fotografias, oportunidades e Instagram. As notícias continuam acessíveis como arquivo.

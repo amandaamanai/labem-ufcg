@@ -13,3 +13,9 @@
 - Configure eventos em `src/data/events.ts`, editais em `src/data/recruitment.ts` e avisos em `src/data/notices.ts`. Use datas com fuso explícito e Google Forms oficiais com links distintos para eventos e recrutamento.
 - Preserve as rotas permanentes `/eventos/`, `/faca-parte/` e as notícias arquivadas. Direcione atualizações cotidianas para o Instagram configurado em `src/data/site.ts`.
 - Teste os estados ativos e inativos das oportunidades. Trabalhe em uma branch e envie a publicação para aprovação antes de integrar à `main`.
+
+## Composição e imagens
+
+- Preserve a ordem editorial de `homeSections`, a associação de Equipe Galo de Campina à MotoStudent e aos registros históricos e a distinção entre UFCG e patrocínios comerciais.
+- Reutilize `ImageSlot`, `SubsystemCards` e os tokens de `DESIGN_SYSTEM.md`. Cadastre fotos confirmadas em `src/data/imageSlots.ts` e mantenha `GUIA_DE_IMAGENS.md` e `CATALOGO_DE_IMAGENS.csv` sincronizados quando mudar o layout.
+- Use `PUBLIC_IMAGE_MAP=1` apenas na prévia. Preserve redirecionamentos antigos com o prefixo do GitHub Pages.

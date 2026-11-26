@@ -1,22 +1,30 @@
 ---
+import ImageLabel from './ImageLabel.astro'
+import { bannerSlots } from '../data/imageSlots'
+import { availablePhoto } from '../utils/images'
 import { banner } from '../data/site'
 import { url } from '../utils/urls'
 ---
 <div class="banner" data-carousel={banner.carousel && banner.slides.length > 1 ? banner.interval : undefined}>
-  {banner.slides.map((slide, index) => (
+  {banner.slides.map((slide, index) => {
+    const desktop = availablePhoto(slide.image ? { file: slide.image, alt: '' } : undefined)
+    const mobile = availablePhoto(slide.mobile ? { file: slide.mobile, alt: '' } : undefined)
+    const cover = desktop ?? mobile
+    return (
     <section class="hero" hidden={index > 0} style={`--hero-height:${slide.height};--hero-position:${slide.position};--hero-overlay:${slide.overlay};--hero-align:${slide.align}`}>
-      <picture class="hero-picture">
-        <source media="(max-width: 650px)" srcset={url('images/' + slide.mobile)} />
-        <img src={url('images/' + slide.image)} alt="" fetchpriority={index === 0 ? 'high' : 'auto'} loading={index === 0 ? 'eager' : 'lazy'} />
-      </picture>
+      {cover && <picture class="hero-picture">
+        {mobile && <source media="(max-width: 650px)" srcset={url('images/' + mobile.file)} />}
+        <img src={url('images/' + cover.file)} alt="" fetchpriority={index === 0 ? 'high' : 'auto'} loading={index === 0 ? 'eager' : 'lazy'} />
+      </picture>}
+      {index === 0 && <ImageLabel {...bannerSlots('HERO')} />}
       <div class="wrap hero-content">
         <p class="eyebrow"><span></span>{slide.eyebrow}</p>
         {index === 0 ? <h1>{slide.title[0]}<br /><em>{slide.title[1]}</em></h1> : <h2 class="hero-title">{slide.title[0]}<br /><em>{slide.title[1]}</em></h2>}
         <p class="hero-description">{slide.description}</p>
         <div class="actions">{slide.buttons.map((button, i) => <a class:list={['button', { outline: i > 0 }]} href={url(button.href)}>{button.label}</a>)}</div>
       </div>
-      <div class="wrap hero-caption"><span>{slide.caption}</span></div>
+      {cover && slide.caption && <div class="wrap hero-caption"><span>{slide.caption}</span></div>}
     </section>
-  ))}
+  )})}
   {banner.carousel && banner.slides.length > 1 && <div class="carousel-controls wrap" hidden><button class="button outline small" type="button" data-slide-prev>Anterior</button><button class="button outline small" type="button" data-slide-pause>Pausar</button><button class="button outline small" type="button" data-slide-next>Próximo</button></div>}
 </div>
