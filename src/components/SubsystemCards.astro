@@ -1,21 +1,43 @@
 ---
 import SubsystemIcon from './SubsystemIcon.astro'
+import InstitutionalIcon from './InstitutionalIcon.astro'
 import ImageSlot from './ImageSlot.astro'
 import { imageSlots } from '../data/imageSlots'
 import { availablePhoto } from '../utils/images'
 import { engineering } from '../data/site'
 import { url } from '../utils/urls'
+
+const { compact = false } = Astro.props as { compact?: boolean }
 ---
-<ul class="subsystem-grid">
+<ul class:list={['subsystem-grid', { 'subsystem-grid-compact': compact }]}>
   {engineering.map(entry => <li>
-    <a class="subsystem-card" href={url(`engenharia/${entry.slug}/`)}>
-      {(availablePhoto(imageSlots[entry.slot].photo) || availablePhoto(imageSlots[entry.slot].mobile)) && <ImageSlot media={imageSlots[entry.slot]} />}
+    <a class="subsystem-card" href={url(compact ? entry.slug === 'pdi' ? 'pdi/' : 'equipe/#' + entry.slug : 'engenharia/' + entry.slug + '/')}>
+      {!compact && (availablePhoto(imageSlots[entry.slot].photo) || availablePhoto(imageSlots[entry.slot].mobile)) && <ImageSlot media={imageSlots[entry.slot]} />}
       <div class="subsystem-copy">
-        <SubsystemIcon name={entry.slug} />
-        <h3>{entry.title}</h3>
-        <p>{entry.slug === 'pdi' ? entry.category : entry.summary}</p>
-        <span class="text-link">Conheça o subsistema</span>
+        {compact && entry.slug === 'extensao' ? <span class="subsystem-icon" aria-hidden="true"><InstitutionalIcon name="hand-heart" /></span> : <SubsystemIcon name={entry.slug} />}
+        <div class="subsystem-title"><h3>{entry.title}</h3>{compact && entry.slug === 'pdi' && <small>{entry.category}</small>}</div>
+        {compact ? <svg class="subsystem-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg> : <><p>{entry.slug === 'pdi' ? entry.category : entry.summary}</p><span class="text-link">Conheça o subsistema</span></>}
       </div>
     </a>
   </li>)}
 </ul>
+<style>
+  .subsystem-grid-compact .subsystem-copy {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) 20px;
+    align-items: center;
+    gap: 12px;
+    min-height: 96px;
+  }
+
+  .subsystem-grid-compact .subsystem-title h3 { margin: 0; }
+  .subsystem-grid-compact .subsystem-title small {
+    display: block;
+    color: var(--muted);
+    font-size: .8rem;
+  }
+
+  .subsystem-grid-compact .subsystem-icon { margin: 0; background: #fcebec; }
+
+  .subsystem-arrow { width: 20px; color: var(--red); }
+</style>

@@ -1,0 +1,101 @@
+---
+import InstitutionalIcon from './InstitutionalIcon.astro'
+import { coordination, organization } from '../data/institutional'
+import '../styles/institutional.css'
+---
+<section class="content-section institutional-section" id="gestao" aria-labelledby="organograma-titulo">
+  <div class="institutional-intro">
+    <p class="eyebrow red-mark">Nossa organização</p>
+    <h2 id="organograma-titulo">Uma equipe, diferentes competências.</h2>
+  </div>
+  <figure class="organization-chart">
+    <ul class="organization-lead">
+      {coordination.map(title => <li>{title}</li>)}
+    </ul>
+    <div class="organization-connector organization-connector--top" aria-hidden="true"></div>
+    <div class="organization-student">
+      <h3>Coordenação Discente</h3>
+      <p>Responde pela gestão geral da equipe e representa o LABEM perante a comunidade.</p>
+    </div>
+    <div class="organization-connector organization-connector--bottom" aria-hidden="true"></div>
+    <div class="organization-departments">
+      {organization.map(department => <section class="organization-department" id={department.id}>
+        <span class="institutional-icon"><InstitutionalIcon name={department.icon} /></span>
+        <h3>{department.title}</h3>
+        {'note' in department && <p class="organization-note">{department.note}</p>}
+        {'lead' in department && <div class="organization-role organization-role--lead" id={department.lead.id}>
+          <h4>{department.lead.title}</h4><p>{department.lead.description}</p>
+        </div>}
+        <ul class:list={['organization-roles', { 'organization-roles--subsystems': 'lead' in department }]}>
+          {department.roles.map(role => <li class="organization-role" id={role.id}><h4>{role.title}</h4><p>{role.description}</p></li>)}
+        </ul>
+      </section>)}
+    </div>
+    <section class="organization-extension" id="extensao">
+      <span class="institutional-icon"><InstitutionalIcon name="hand-heart" /></span>
+      <div><h3>Extensão universitária</h3><p>Frente complementar de atuação institucional.</p></div>
+    </section>
+    <figcaption>Estrutura organizacional baseada no Estatuto do LABEM — 2ª edição, 2025.</figcaption>
+  </figure>
+</section>
+<style>
+  .institutional-intro { margin-inline: auto; text-align: center; }
+  .organization-chart { margin: 0; }
+  .organization-lead, .organization-roles { list-style: none; margin: 0; padding: 0; }
+  .organization-lead { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .organization-lead li, .organization-student {
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 16px;
+    padding: 16px 14px;
+  }
+  .organization-lead li { background: var(--inst-accent); }
+  .organization-student { background: var(--inst-ink); margin-inline: auto; width: min(100%, 640px); }
+  .organization-student h3 { color: inherit; margin: 0; }
+  .organization-student p { margin: 5px 0 0; color: #eee; font-size: .9rem; font-weight: 400; }
+  .organization-connector { height: 32px; position: relative; }
+  .organization-connector::before, .organization-connector::after { content: ''; position: absolute; }
+  .organization-connector::before { border-inline: 1px solid #a5a1a0; height: 50%; }
+  .organization-connector::after { border-left: 1px solid #a5a1a0; left: 50%; height: 50%; }
+  .organization-connector--top::before { inset: 0 25% auto; border-bottom: 1px solid #a5a1a0; }
+  .organization-connector--top::after { bottom: 0; }
+  .organization-connector--bottom::before { inset: auto 16.7% 0; border-top: 1px solid #a5a1a0; }
+  .organization-connector--bottom::after { top: 0; height: 100%; }
+  .organization-departments { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .organization-department, .organization-extension {
+    padding: clamp(16px, 2vw, 24px);
+    border: 1px solid var(--inst-line);
+    border-radius: 24px;
+    background: var(--inst-surface);
+    scroll-margin-top: 95px;
+  }
+  .organization-department > h3 { margin: 12px 0 16px; }
+  .organization-roles { display: grid; gap: 8px; }
+  .organization-role { border: 1px solid var(--inst-line); border-radius: 12px; padding: 10px 12px; scroll-margin-top: 95px; }
+  .organization-role h4 { font-size: .97rem; line-height: 1.3; margin: 0; }
+  .organization-role p, .organization-note, .organization-extension p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: .88rem;
+  }
+  .organization-note { margin: -7px 0 12px; }
+  .organization-role--lead { background: var(--inst-soft); border-color: #f3ced0; }
+  .organization-roles--subsystems { border-left: 1px solid #a5a1a0; padding-left: 10px; margin: 8px 0 0 6px; }
+  .organization-extension { margin-top: 24px; display: flex; align-items: center; gap: 14px; }
+  .organization-extension h3 { margin: 0; }
+  figcaption { margin-top: 14px; color: var(--muted); font-size: .84rem; }
+  @media (max-width: 750px) {
+    .organization-departments { grid-template-columns: minmax(0, 1fr); }
+    .organization-connector--bottom::before { display: none; }
+    .organization-departments { padding-left: 14px; position: relative; }
+    .organization-departments::before { content: ''; position: absolute; left: 3px; inset-block: 0; border-left: 1px solid #a5a1a0; }
+    .organization-department { position: relative; }
+    .organization-department::before { content: ''; position: absolute; left: -12px; top: 28px; width: 11px; border-top: 1px solid #a5a1a0; }
+    .organization-connector--bottom::after { width: calc(50% - 3px); left: 3px; border-left: none; border-right: 1px solid #a5a1a0; border-bottom: 1px solid #a5a1a0; }
+  }
+  @media (max-width: 420px) {
+    .organization-lead { gap: 8px; }
+    .organization-lead li { font-size: .86rem; padding-inline: 7px; }
+  }
+</style>

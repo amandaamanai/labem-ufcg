@@ -22,7 +22,7 @@ export const imageSlots: Record<string, ImageSlot> = {
   'HISTORIA-2018': { id: 'HISTORIA-2018', label: 'Participação na MotoStudent', ratio: '8 / 5', fit: 'contain', photo: photos.competition, caption: 'Equipe Galo de Campina na MotoStudent de 2018, em Aragón, Espanha.' },
   'HISTORIA-2019': { id: 'HISTORIA-2019', label: 'Preparação para a sexta edição', ratio: '8 / 5' },
   'HISTORIA-2025': { id: 'HISTORIA-2025', label: 'Pesquisa no CONEMI', ratio: '8 / 5', fit: 'contain', photo: photos.conemi, caption: 'Integrantes do LABEM no CONEMI 2025, em João Pessoa.' },
-  'MOTOSTUDENT-HOME': { id: 'MOTOSTUDENT-HOME', label: 'Equipe com a bandeira brasileira', ratio: '4 / 3', fit: 'contain', fallback: 'neutral', photo: photos.flag, caption: 'Equipe Galo de Campina com a bandeira brasileira na viagem para a MotoStudent de 2018.' },
+  'MOTOSTUDENT-HOME': { id: 'MOTOSTUDENT-HOME', label: 'Equipe no circuito de Aragón', ratio: '4 / 3', fit: 'contain', fallback: 'neutral', photo: photos.competition, caption: 'Equipe Galo de Campina em MotorLand Aragón, na MotoStudent de 2018.' },
   'SUBSISTEMA-ESTRUTURA': { id: 'SUBSISTEMA-ESTRUTURA', label: 'Equipe de Estrutura', ratio: '8 / 5' },
   'SUBSISTEMA-POWERTRAIN': { id: 'SUBSISTEMA-POWERTRAIN', label: 'Equipe de Powertrain', ratio: '8 / 5' },
   'SUBSISTEMA-ELETRICA': { id: 'SUBSISTEMA-ELETRICA', label: 'Equipe de Elétrica', ratio: '8 / 5' },

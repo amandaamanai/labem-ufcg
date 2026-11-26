@@ -2,7 +2,7 @@
 import Detail from '../../layouts/Detail.astro'
 import { engineering } from '../../data/site'
 export function getStaticPaths() {
-  return engineering.map(entry => ({ params: { slug: entry.slug }, props: { entry } }))
+  return engineering.filter(entry => entry.slug !== 'pdi').map(entry => ({ params: { slug: entry.slug }, props: { entry } }))
 }
 const { entry } = Astro.props
 ---

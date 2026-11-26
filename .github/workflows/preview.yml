@@ -72,6 +72,12 @@ jobs:
               await page.getByRole('heading', { name: 'Eventos do LABEM' }).waitFor()
               await page.goto(pathToFileURL(resolve('previa-offline/engenharia/marketing/index.html')).href)
               await page.getByRole('heading', { name: 'Gestão', exact: true }).waitFor()
+              const institutionalSections = {
+                'sobre/': [['#atuacao', 'areas-de-atuacao'], ['#missao-visao', 'missao-e-visao'], ['#valores', 'valores']],
+                'equipe/': [['#gestao', 'organograma']],
+                'pdi/': [['.research-page', 'pdi'], ['#producoes', 'producoes-cientificas']],
+                'motostudent/': [['main', 'motostudent']],
+              }
               for (const width of [1440, 390]) {
                 await page.setViewportSize({ width, height: 900 })
                 for (const [route, name] of [['', 'home'], ['eventos/', 'eventos'], ['faca-parte/', 'selecao']]) {
@@ -97,6 +103,16 @@ jobs:
                     for (const section of ['parceiros', 'historia', 'competicao', 'engenharia', 'instagram']) {
                       await page.locator('#' + section).screenshot({ path: `capturas/${section}-${width}.png` })
                     }
+                  }
+                }
+                for (const [route, sections] of Object.entries(institutionalSections)) {
+                  await page.goto('http://127.0.0.1:4321/' + route)
+                  await page.evaluate(async () => {
+                    for (const photo of document.querySelectorAll('main img[loading="lazy"]')) photo.loading = 'eager'
+                    await document.fonts.ready
+                  })
+                  for (const [selector, name] of sections) {
+                    await page.locator(selector).screenshot({ path: `capturas/${name}-${width}.png` })
                   }
                 }
               }
