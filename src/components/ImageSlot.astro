@@ -1,0 +1,31 @@
+---
+import ImageLabel from './ImageLabel.astro'
+import { imageMap, type ImageSlot } from '../data/imageSlots'
+import { availablePhoto } from '../utils/images'
+import { url } from '../utils/urls'
+interface Props { media: ImageSlot }
+const { media: slot } = Astro.props
+const photo = availablePhoto(slot.photo)
+const mobile = availablePhoto(slot.mobile)
+const cover = photo ?? mobile
+const visible = cover || imageMap || slot.fallback === 'neutral'
+---
+{visible && <figure class="image-slot"
+  style={{
+    '--image-ratio': slot.ratio,
+    '--image-fit': slot.fit ?? 'cover',
+    '--image-width': slot.width,
+    '--image-height': slot.height,
+    '--image-radius': slot.radius,
+    '--image-position': cover?.position,
+    '--image-mobile-position': mobile?.position,
+  }}>
+  <div class:list={['image-slot-frame', { 'image-slot-empty': !photo && !mobile }]}>
+    {cover && <picture>
+      {mobile && <source srcset={url('images/' + mobile.file)} media="(max-width: 650px)" />}
+      <img src={url('images/' + cover.file)} alt={cover.alt} loading="lazy" decoding="async" />
+    </picture>}
+    <ImageLabel id={slot.id} mobileId={slot.mobileId} label={slot.label} />
+  </div>
+  {cover && slot.caption && <figcaption>{slot.caption}</figcaption>}
+</figure>}

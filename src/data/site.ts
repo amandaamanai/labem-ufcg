@@ -8,6 +8,7 @@ export type Entry = {
 }
 export const institution = {
   name: 'Laboratório de Engenharia da Motocicleta',
+  affiliation: ['Universidade Federal de Campina Grande — UFCG', 'Centro de Ciências e Tecnologia — CCT', 'Unidade Acadêmica de Engenharia Mecânica — UAEM', 'Campina Grande, Paraíba — Brasil'],
   email: 'labemuaem@gmail.com',
   instagram: 'https://www.instagram.com/labemufcg/',
   linkedin: 'https://www.linkedin.com/company/labemufcg/',
@@ -40,16 +41,26 @@ export const banner = {
   interval: 8000,
   slides: [{
     image: 'banner.webp', mobile: 'banner-mobile.webp',
-    eyebrow: 'LABEM UFCG · EQUIPE GALO DE CAMPINA',
+    eyebrow: 'LABEM · UFCG',
     title: ['ENGENHARIA', 'EM DUAS RODAS.'],
-    description: 'Desenvolvemos motocicletas de competição e formamos engenheiros na prática, da bancada à pista.',
+    description: 'Transformamos conhecimento em tecnologia, desafios em aprendizado e ideias em movimento.',
     buttons: [{ label: 'Conheça o LABEM', href: 'sobre/' }, { label: 'Explore os projetos', href: 'projetos/' }],
     caption: 'PROTÓTIPO DE MOTOVELOCIDADE · LABEM UFCG',
-    align: 'left', position: 'right 56%', overlay: '.23', height: '620px',
+    align: 'left', position: 'right 56%', overlay: '.23', height: 'clamp(560px, 43vw, 690px)',
   }],
 }
-export const homeSections = ['sobre', 'historia', 'competicao', 'engenharia', 'galeria', 'oportunidades', 'instagram', 'parceiros', 'apoio'] as const
+export const homeSections = ['parceiros', 'historia', 'competicao', 'engenharia', 'oportunidades', 'instagram', 'apoio'] as const
+export const trajectory = {
+  eyebrow: 'Nossa trajetória',
+  title: 'Uma história construída pela engenharia.',
+  description: 'Desde 2012, o Laboratório de Engenharia da Motocicleta promove a integração entre conhecimento acadêmico e experiência prática, proporcionando aos estudantes da UFCG oportunidades de atuação em projetos multidisciplinares, pesquisa, inovação e desenvolvimento tecnológico.',
+}
+export const faculty = {
+  wanderley: 'Wanderley Ferreira de Amorim Júnior',
+  juscelino: 'Juscelino de Farias Maribondo',
+}
 export const sources = {
+  faculty: 'https://uaem.ufcg.edu.br/servidores/docentes',
   aragon: 'https://cct.ufcg.edu.br/noticias/estudantes-da-ufcg-disputam-competicao-internacional-na-espanha/',
   sixth: 'https://cct.ufcg.edu.br/noticias/unica-do-nordeste-ufcg-representara-o-brasil-em-competicao-internacional-de-engenharia-na-espanha/',
   recruitment: 'https://cct.ufcg.edu.br/noticias/labem-ufcg-divulga-edital-para-processo-seletivo-2022-2/',
@@ -72,40 +83,38 @@ export const photos = {
 } satisfies Record<string, Photo>
 export const instagramBanner = {
   title: 'Acompanhe nossa jornada.',
-  description: 'Da oficina às competições, acompanhe nossos projetos, eventos, conquistas e bastidores.',
+  description: 'Conheça nossos projetos, eventos, conquistas e bastidores. Acompanhe de perto as atividades do LABEM.',
   button: 'Visite nosso Instagram',
   href: institution.instagram,
-  photos: [photos.workshop, photos.competition, photos.fair],
+  slots: ['INSTAGRAM-01', 'INSTAGRAM-02'],
 }
-export const homeGallery = [photos.historical, photos.workshop, photos.competition]
 export const motoStudent2018 = 'Em 2018, a equipe Galo de Campina apresentou seu projeto na fase teórica da quinta MotoStudent, em Aragón. Como a motocicleta não viajou para a Espanha, a equipe não participou das provas de pista.'
-export const timeline = [
-  { year: '2012', title: 'Fundação na UFCG', text: 'Daniel Anacleto inicia o LABEM na Engenharia Mecânica, orientado por Wanderley Ferreira e Juscelino Maribondo.' },
-  { year: '2018', title: 'Estreia internacional', text: motoStudent2018, href: sources.aragon },
-  { year: '2019', title: 'Preparação para a sexta edição', text: 'O CCT anuncia a aprovação da equipe para outro ciclo da MotoStudent.', href: sources.sixth },
-  { year: '2025', title: 'Produção no CONEMI', text: 'A apresentação institucional registra dois artigos publicados no congresso.' },
+export const timeline: { year?: string; title: string; text: string; source?: Link; slot?: string }[] = [
+  { year: '2012', title: 'O início de uma trajetória', text: `O Laboratório de Engenharia da Motocicleta foi fundado na Universidade Federal de Campina Grande a partir da iniciativa de Daniel Anacleto, com orientação dos professores ${faculty.wanderley} e ${faculty.juscelino}. Sua criação estabeleceu as bases para o desenvolvimento de atividades acadêmicas e projetos relacionados à engenharia motociclística.`, source: { label: 'Docentes da UAEM', href: sources.faculty }, slot: 'HISTORIA-2012' },
+  { year: '2018', title: 'Da UFCG para o cenário internacional', text: 'A equipe Galo de Campina representou a universidade na etapa teórica da quinta edição da MotoStudent, realizada em Aragón, na Espanha. A experiência proporcionou a apresentação do projeto desenvolvido na UFCG em um ambiente internacional de engenharia competitiva.', source: { label: 'Leia no CCT/UFCG', href: sources.aragon }, slot: 'HISTORIA-2018' },
+  { year: '2019', title: 'Novos desafios na engenharia competitiva', text: 'A aprovação da equipe para um novo ciclo da MotoStudent marcou a continuidade das atividades de desenvolvimento tecnológico e preparação para a sexta edição da competição, fortalecendo a presença da UFCG no cenário da engenharia universitária.', source: { label: 'Leia no CCT/UFCG', href: sources.sixth }, slot: 'HISTORIA-2019' },
+  { year: '2025', title: 'Pesquisa e conhecimento científico', text: 'O LABEM fortaleceu sua atuação acadêmica com a publicação de dois trabalhos científicos no Congresso Nacional de Engenharia Mecânica e Industrial (CONEMI), abordando temas relacionados ao desenvolvimento de motocicletas e contribuindo para a disseminação do conhecimento e a formação dos estudantes.', source: { label: 'Leia o artigo nos anais', href: 'https://doi.org/10.29327/27644294.1249226' }, slot: 'HISTORIA-2025' },
+  { title: 'Construindo o futuro', text: 'O laboratório segue desenvolvendo suas atividades por meio da engenharia aplicada, da pesquisa científica, da extensão universitária, da inovação e da formação multidisciplinar, buscando fortalecer sua atuação acadêmica e tecnológica.' },
 ]
 export const phases = ['Pesquisa', 'Concepção', 'Prototipagem', 'Testes', 'Otimização']
-export const engineering: Entry[] = [
-  { slug: 'estrutura', title: 'Estrutura e chassi', category: 'Subsistema técnico', summary: 'Integração entre chassi, suspensão e carenagem, com atenção à rigidez e ao peso.', photo: photos.workshop, sections: [
+export const engineering: (Entry & { slot: string })[] = [
+  { slug: 'estrutura', slot: 'SUBSISTEMA-ESTRUTURA', title: 'Equipe de Estrutura', category: 'Subsistema técnico', summary: 'Integração entre chassi, suspensão e carenagem, com atenção à rigidez e ao peso.', photo: photos.workshop, sections: [
     { title: 'Da geometria ao protótipo', text: 'O subsistema trabalha com a definição de configurações, modelagem CAD e integração dos componentes. A equipe considera a fabricação desde o desenho, incluindo a viabilidade de soldagem.' },
     { title: 'Aerodinâmica', text: 'A carenagem integra as atividades de Estrutura e sua geometria precisa conciliar as exigências do conjunto e do protótipo de motovelocidade.' },
   ], related: ['powertrain', 'eletrica'] },
-  { slug: 'powertrain', title: 'Powertrain', category: 'Subsistema técnico', summary: 'Integração do motor e da transmissão e avaliação do desempenho do conjunto motriz.', photo: photos.motor, sections: [
+  { slug: 'powertrain', slot: 'SUBSISTEMA-POWERTRAIN', title: 'Equipe de Powertrain', category: 'Subsistema técnico', summary: 'Integração do motor e da transmissão e avaliação do desempenho do conjunto motriz.', photo: photos.motor, sections: [
     { title: 'Integração mecânica', text: 'O grupo compatibiliza o motor e a transmissão com o chassi, a montagem e a configuração definida para a motocicleta.' },
   ], related: ['estrutura', 'eletrica'] },
-  { slug: 'eletrica', title: 'Elétrica e eletrônica', category: 'Subsistema técnico', summary: 'Eletrônica embarcada, sistema de carga e injeção eletrônica.', photo: photos.workshop, sections: [
+  { slug: 'eletrica', slot: 'SUBSISTEMA-ELETRICA', title: 'Equipe de Elétrica', category: 'Subsistema técnico', summary: 'Eletrônica embarcada, sistema de carga e injeção eletrônica.', photo: photos.workshop, sections: [
     { title: 'Sistemas embarcados', text: 'A equipe integra os sistemas elétricos da motocicleta. Os materiais descrevem oficinas sobre sistema de carga e injeção eletrônica e citam telemetria básica entre as metas.' },
   ] },
-  { slug: 'marketing', title: 'Marketing', category: 'Subsistema institucional', summary: 'Comunicação, imagem e relacionamento institucional do laboratório.', photo: photos.fair, sections: [
-    { title: 'Comunicação do projeto', text: 'A frente divulga atividades e aproxima o laboratório de estudantes, empresas e instituições.' },
-  ] },
-  { slug: 'extensao', title: 'Extensão', category: 'Subsistema institucional', summary: 'Ações educativas para aproximar estudantes da rede pública da ciência e da engenharia.', photo: photos.outreach, sections: [
+  { slug: 'gestao', slot: 'SUBSISTEMA-GESTAO', title: 'Gestão', category: 'Subsistema institucional', summary: 'Organização administrativa e institucional do laboratório.', sections: [] },
+  { slug: 'extensao', slot: 'SUBSISTEMA-EXTENSAO', title: 'Extensão', category: 'Subsistema institucional', summary: 'Ações educativas para aproximar estudantes da rede pública da ciência e da engenharia.', photo: photos.outreach, sections: [
     { title: 'LABEM Conecta', text: 'A iniciativa, coordenada pelo professor Ruan Eduardo segundo a apresentação institucional, incentiva estudantes do ensino médio da rede pública a explorar a engenharia.' },
   ] },
-  { slug: 'competicao', title: 'Competição', category: 'Subsistema institucional', summary: 'Preparação técnica e participação da equipe Galo de Campina na MotoStudent.', photo: photos.competition, sections: [
-    { title: 'Preparação para as etapas', text: 'A frente articula a preparação para apresentação técnica, documentação e atividades de pista previstas no regulamento da edição.' },
-  ], links: [{ label: 'Organização da MotoStudent', href: sources.competition }] },
+  { slug: 'pdi', slot: 'SUBSISTEMA-PDI', title: 'PD&I', category: 'Pesquisa, Desenvolvimento e Inovação', summary: 'A área de Pesquisa, Desenvolvimento e Inovação atua na integração entre conhecimento científico, engenharia aplicada e desenvolvimento tecnológico, contribuindo para estudos, projetos multidisciplinares e produção acadêmica relacionada à engenharia motociclística.', sections: [
+    { title: 'Pesquisa aplicada', text: 'Conheça os trabalhos científicos e os projetos de engenharia já documentados pelo laboratório.' },
+  ], links: [{ label: 'Produção científica', href: 'pesquisa/' }, { label: 'Projetos', href: 'projetos/' }] },
 ]
 export const projects: Entry[] = [
   { slug: 'prototipo-de-motovelocidade', title: 'Protótipo de motovelocidade', category: 'Motocicleta', status: 'Protótipo apresentado', summary: 'Uma motocicleta desenvolvida na UFCG para aplicar, em um mesmo projeto, engenharia, fabricação e testes.', photo: photos.prototype, gallery: [photos.fair, photos.workshop], sections: [
@@ -141,8 +150,8 @@ export const publications = [
   { title: 'Projeto, fabricação e teste de uma motocicleta de motovelocidade', authors: 'Maria Clara Pires Leitão de Souza, Daniel Anacleto, Lucas Kennedy Alves Araújo, Ruan Eduardo Carneiro Lucas e Wanderley Ferreira de Amorim Júnior', year: '2025', category: 'Artigo em congresso', venue: '25º CONEMI e 3ª FENAMEC', doi: '10.29327/27644294.1249226', summary: 'Trabalho sobre as etapas de projeto, fabricação e testes de uma motocicleta de motovelocidade.' },
 ]
 export const team = [
-  { name: 'Wanderley Ferreira de Amorim Júnior', role: 'Orientação na fundação', area: 'Docência', period: 'Histórico' },
-  { name: 'Juscelino Maribondo', role: 'Orientação na fundação', area: 'Docência', period: 'Histórico' },
+  { name: faculty.wanderley, role: 'Orientação na fundação', area: 'Docência', period: 'Histórico' },
+  { name: faculty.juscelino, role: 'Orientação na fundação', area: 'Docência', period: 'Histórico' },
   { name: 'Ruan Eduardo Carneiro Lucas', role: 'Coordenação do LABEM Conecta', area: 'Extensão', period: 'Registro institucional' },
 ]
 export const governance: {
@@ -151,7 +160,7 @@ export const governance: {
 } = { history: [] }
 
 export const partnership: { presentationPdf?: string; email: string } = { email: institution.email }
-export const partners: { name: string; category: string; description: string; logo?: string; href?: string; sponsor?: boolean }[] = [
+export const partners: { name: string; category: 'Vínculo institucional' | 'Parceria tecnológica' | 'Patrocínio' | 'Apoio'; description: string; logo?: string; logoSlot?: string; href?: string }[] = [
   { name: 'Universidade Federal de Campina Grande', category: 'Vínculo institucional', description: 'Universidade à qual o projeto está vinculado, por meio do Centro de Ciências e Tecnologia.', href: institution.university },
 ]
 export const gallery = [

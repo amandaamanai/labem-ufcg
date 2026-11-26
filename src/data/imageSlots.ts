@@ -1,0 +1,40 @@
+import type { Photo } from './site'
+
+export interface ImageSlot {
+  id: string
+  label: string
+  ratio: string
+  photo?: Photo
+  mobile?: Photo
+  caption?: string
+  mobileId?: string
+  fit?: 'cover' | 'contain'
+  width?: string
+  height?: string
+  radius?: string
+  fallback?: 'hide' | 'neutral'
+}
+
+export const imageMap = import.meta.env.PUBLIC_IMAGE_MAP === '1'
+
+export const imageSlots: Record<string, ImageSlot> = {
+  'HISTORIA-2012': { id: 'HISTORIA-2012', label: 'Fundação do laboratório', ratio: '8 / 5' },
+  'HISTORIA-2018': { id: 'HISTORIA-2018', label: 'Participação na MotoStudent', ratio: '8 / 5' },
+  'HISTORIA-2019': { id: 'HISTORIA-2019', label: 'Preparação para a sexta edição', ratio: '8 / 5' },
+  'HISTORIA-2025': { id: 'HISTORIA-2025', label: 'Pesquisa no CONEMI', ratio: '8 / 5' },
+  'MOTOSTUDENT-HOME': { id: 'MOTOSTUDENT-HOME', label: 'Equipe na Espanha com a bandeira brasileira', ratio: '4 / 3', fit: 'contain', fallback: 'neutral', caption: 'Equipe Galo de Campina na MotoStudent, em Aragón, Espanha.' },
+  'SUBSISTEMA-ESTRUTURA': { id: 'SUBSISTEMA-ESTRUTURA', label: 'Equipe de Estrutura', ratio: '8 / 5' },
+  'SUBSISTEMA-POWERTRAIN': { id: 'SUBSISTEMA-POWERTRAIN', label: 'Equipe de Powertrain', ratio: '8 / 5' },
+  'SUBSISTEMA-ELETRICA': { id: 'SUBSISTEMA-ELETRICA', label: 'Equipe de Elétrica', ratio: '8 / 5' },
+  'SUBSISTEMA-GESTAO': { id: 'SUBSISTEMA-GESTAO', label: 'Gestão', ratio: '8 / 5' },
+  'SUBSISTEMA-EXTENSAO': { id: 'SUBSISTEMA-EXTENSAO', label: 'Extensão', ratio: '8 / 5' },
+  'SUBSISTEMA-PDI': { id: 'SUBSISTEMA-PDI', label: 'Pesquisa, Desenvolvimento e Inovação', ratio: '8 / 5' },
+  'INSTAGRAM-01': { id: 'INSTAGRAM-01', label: 'Registro do LABEM', ratio: '4 / 5' },
+  'INSTAGRAM-02': { id: 'INSTAGRAM-02', label: 'Registro do LABEM', ratio: '4 / 5' },
+  'PARTNER-LOGO-01': { id: 'PARTNER-LOGO-01', label: 'Logotipo aprovado', ratio: '3 / 2', fit: 'contain' },
+  'PARTNER-LOGO-02': { id: 'PARTNER-LOGO-02', label: 'Logotipo aprovado', ratio: '3 / 2', fit: 'contain' },
+}
+
+export function bannerSlots(group: 'HERO' | 'EVENTO' | 'PROCESSO-SELETIVO') {
+  return { id: `${group}-DESKTOP`, mobileId: `${group}-MOBILE`, label: 'Banner' }
+}

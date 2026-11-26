@@ -2,86 +2,101 @@
 import Base from '../layouts/Base.astro'
 import Banner from '../components/Banner.astro'
 import Timeline from '../components/Timeline.astro'
-import Photo from '../components/Photo.astro'
-import Gallery from '../components/Gallery.astro'
-import OpportunityList from '../components/OpportunityList.astro'
-import { engineering, homeGallery, homeSections, instagramBanner, partners, photos } from '../data/site'
+import ImageSlot from '../components/ImageSlot.astro'
+import SubsystemCards from '../components/SubsystemCards.astro'
+import { homeSections, instagramBanner, partners, trajectory } from '../data/site'
+import { imageMap, imageSlots } from '../data/imageSlots'
+import { availablePhoto } from '../utils/images'
+import { getEvent } from '../data/events'
+import { recruitment, recruitmentStatus } from '../data/recruitment'
 import { url } from '../utils/urls'
+
+const event = getEvent()
+const showEvent = event?.active && event.featured
+const showSelection = recruitment.status !== 'sem-edital' && recruitment.featured
+const socialSlots = instagramBanner.slots.map(id => imageSlots[id]).filter(slot => imageMap || availablePhoto(slot.photo) || availablePhoto(slot.mobile))
+const openLogoSlots = ['PARTNER-LOGO-01', 'PARTNER-LOGO-02'].filter(id => !partners.some(partner => partner.logoSlot === id))
 ---
 <Base>
   <Banner />
   {homeSections.map(section => {
     switch (section) {
-      case 'sobre': return (
-        <section class="wrap split section-pad" id="sobre">
-          <div class="split-copy">
-            <p class="eyebrow red-mark">Fundado em 2012 · Campina Grande, PB</p>
-            <h2>DA BANCADA<br />À PISTA<span class="accent">.</span></h2>
-            <p>O Laboratório de Engenharia da Motocicleta é um projeto da UFCG. Estudantes de diferentes áreas projetam, fabricam e testam motocicletas de motovelocidade.</p>
-            <a href={url('sobre/')} class="text-link">Conheça o laboratório</a>
+      case 'parceiros': return (
+        <section class="partner-band" id="parceiros">
+          <div class="wrap partner-band-inner">
+            <div><p class="eyebrow red-mark">Engenharia construída em conjunto</p><h2>Quem acredita no nosso projeto</h2><p>Parcerias que impulsionam a pesquisa, a inovação e a formação de futuros profissionais.</p></div>
+            <ul class="partner-strip">
+              {partners.map(partner => {
+                const logo = availablePhoto(partner.logo ? { file: partner.logo, alt: partner.name } : undefined)
+                const frame = partner.logoSlot ? imageSlots[partner.logoSlot] : undefined
+                const content = <>{(logo || frame) && <ImageSlot media={{ ...frame, id: frame?.id ?? partner.name, label: frame?.label ?? partner.name, photo: logo && { ...logo, alt: '' }, ratio: '3 / 2', fit: 'contain' }} />}<span>{partner.name}</span><small>{partner.category}</small></>
+                return <li>{partner.href ? <a class="partner-tile" href={partner.href}>{content}</a> : <div class="partner-tile">{content}</div>}</li>
+              })}
+              {imageMap && openLogoSlots.map(id => <li class="partner-tile"><ImageSlot media={imageSlots[id]} /></li>)}
+            </ul>
           </div>
-          <figure class="feature-photo"><Photo photo={photos.team} /><figcaption>Equipe Galo de Campina · UFCG</figcaption></figure>
         </section>
       )
       case 'historia': return (
-        <section class="history-band" id="historia">
-          <div class="wrap split section-pad">
-            <div class="split-copy"><p class="eyebrow red-mark">Nossa história</p><h2>DE CAMPINA<br />A ARAGÓN<span class="accent">.</span></h2><p>Da criação na Engenharia Mecânica à apresentação do projeto na fase teórica da MotoStudent, conheça os marcos da equipe.</p><a class="text-link" href={url('sobre/#historia')}>Leia a trajetória do LABEM</a></div>
-            <Timeline />
+        <section class="wrap section-pad history-editorial" id="historia">
+          <div class="editorial-intro">
+            <p class="eyebrow red-mark">{trajectory.eyebrow}</p>
+            <h2>{trajectory.title}</h2>
+            <p>{trajectory.description}</p>
+            <a class="text-link" href={url('sobre/#historia')}>Conheça nossa história</a>
           </div>
+          <Timeline />
         </section>
       )
       case 'competicao': return (
         <section class="project-band" id="competicao">
           <div class="wrap split section-pad">
-            <figure class="project-photo"><Photo photo={photos.prototype} /></figure>
+            <ImageSlot media={imageSlots['MOTOSTUDENT-HOME']} />
             <div class="split-copy"><p class="eyebrow red-mark">Competição internacional</p><h2>MOTOSTUDENT<span class="accent">.</span></h2>
-              <p>A MotoStudent desafia estudantes a desenvolver uma motocicleta de corrida. Em 2018, o LABEM participou da fase teórica em Aragón, com a apresentação do projeto.</p>
+              <p>A MotoStudent é uma competição internacional que desafia estudantes universitários a aplicar seus conhecimentos no desenvolvimento de motocicletas de competição.</p>
+              <p>Por meio da equipe Galo de Campina, o LABEM conecta a formação acadêmica aos desafios reais da engenharia motociclística, integrando projeto, fabricação, pesquisa e desenvolvimento tecnológico.</p>
               <div class="actions"><a class="button" href={url('motostudent/')}>Sobre a competição</a><a class="button outline" href={url('projetos/prototipo-de-motovelocidade/')}>Ver protótipo</a></div>
             </div>
           </div>
         </section>
       )
       case 'engenharia': return (
-        <section class="wrap split section-pad engineering-home" id="engenharia">
-          <div class="split-copy"><p class="eyebrow red-mark">Projetos e engenharia</p><h2>SEIS FRENTES.<br />UMA MOTO<span class="accent">.</span></h2><p>Do chassi ao trabalho com a comunidade, cada frente contribui para o desenvolvimento do projeto.</p><div class="actions"><a class="button" href={url('projetos/')}>Conheça os projetos</a><a class="text-link" href={url('pesquisa/')}>Produção científica</a></div></div>
-          <ul class="department-list">{engineering.map(item => <li><a href={url(`engenharia/${item.slug}/`)}>{item.title}<span aria-hidden="true">+</span></a></li>)}</ul>
-        </section>
-      )
-      case 'galeria': return (
-        <section class="photo-band" id="galeria">
-          <div class="wrap section-pad">
-            <div class="section-heading"><div><p class="eyebrow red-mark">Galeria</p><h2>O LABEM EM IMAGENS<span class="accent">.</span></h2></div><a class="text-link" href={url('galeria/')}>Ver todos os álbuns</a></div>
-            <Gallery photos={homeGallery} />
+        <section class="wrap section-pad engineering-home" id="engenharia">
+          <div class="editorial-intro">
+            <p class="eyebrow red-mark">Subsistemas</p>
+            <h2>Diferentes competências. Um propósito.</h2>
+            <p>Das atividades de fabricação na oficina mecânica da universidade ao desenvolvimento de projetos, pesquisas e ações institucionais, nossos subsistemas integram diferentes conhecimentos e competências para transformar a formação acadêmica em experiência prática.</p>
           </div>
+          <SubsystemCards />
+          <div class="actions"><a class="button" href={url('projetos/')}>Conheça os projetos</a><a class="text-link" href={url('pesquisa/')}>Produção científica</a></div>
         </section>
       )
       case 'oportunidades': return (
-        <section class="wrap split section-pad" id="oportunidades">
-          <div class="split-copy"><p class="eyebrow red-mark">Eventos e recrutamento</p><h2>OPORTUNIDADES<span class="accent">.</span></h2><p>Consulte as próximas atividades do laboratório e os processos seletivos da equipe.</p><a class="text-link" href={url('oportunidades/')}>Central de oportunidades</a></div>
-          <div><OpportunityList home /></div>
+        <section class="wrap section-pad opportunity-section" id="oportunidades">
+          <div class="opportunity-panel">
+            <div><p class="eyebrow red-mark">Faça parte da equipe!</p><h2>Seu próximo desafio começa aqui.</h2><p>Amplie seus conhecimentos, participe de experiências acadêmicas e desenvolva novas habilidades junto ao LABEM.</p></div>
+            <div class="opportunity-actions">
+              <div>{showSelection && <p>{recruitmentStatus} · {recruitment.edition ?? recruitment.title}</p>}<a class="button" href={url('faca-parte/')}>Processo seletivo</a></div>
+              <div>{showEvent && <p>{event.title}</p>}<a class="button dark-outline" href={url('eventos/')}>Eventos e inscrições</a></div>
+            </div>
+          </div>
         </section>
       )
       case 'instagram': return (
         <section class="social-band" id="instagram">
-          <a class="wrap social-banner" href={instagramBanner.href}>
+          <a class:list={['wrap', 'social-banner', { 'social-banner-with-photos': socialSlots.length }]} href={instagramBanner.href}>
             <div class="social-copy"><p class="eyebrow red-mark">Instagram · @labemufcg</p><h2>{instagramBanner.title}</h2><p>{instagramBanner.description}</p><span class="button">{instagramBanner.button}</span></div>
-            <div class="social-photos" aria-hidden="true">{instagramBanner.photos.map(photo => <Photo photo={photo} />)}</div>
+            {!!socialSlots.length && <div class="social-photos">{socialSlots.map(slot => <ImageSlot media={slot} />)}</div>}
           </a>
         </section>
       )
-      case 'parceiros': return (
-        <section class="wrap section-pad" id="parceiros">
-          <div class="section-heading"><div><p class="eyebrow red-mark">Vínculos institucionais</p><h2>PARCEIROS<span class="accent">.</span></h2></div><a class="text-link" href={url('parceiros/')}>Conheça nossas parcerias</a></div>
-          <ul class="institutional-partners">{partners.map(partner => <li>{partner.logo && <img src={url(partner.logo)} alt="" loading="lazy" />}{partner.href ? <a href={partner.href}>{partner.name}</a> : <span>{partner.name}</span>}</li>)}</ul>
-        </section>
-      )
       case 'apoio': return (
-        <section class="join-band" id="participe"><div class="wrap section-pad split-copy">
-          <p class="eyebrow red-mark">Empresas e instituições</p><h2>APOIE O LABEM<span class="accent">.</span></h2>
-          <p>Contribua para a formação de estudantes e para o desenvolvimento dos próximos protótipos.</p>
-          <a class="button" href={url('parceiros/')}>Seja nosso parceiro</a>
-        </div></section>
+        <section class="wrap section-pad" id="participe">
+          <div class="partner-cta">
+            <div><p class="eyebrow red-mark">Empresas e instituições</p><h2>Construa o futuro da engenharia com a gente.</h2><p>Apoie a formação de futuros profissionais, incentive a pesquisa aplicada e contribua para o desenvolvimento de novas tecnologias por meio da parceria entre universidade e indústria.</p></div>
+            <a class="button" href={url('parceiros/')}>Seja nosso parceiro</a>
+          </div>
+        </section>
       )
     }
   })}

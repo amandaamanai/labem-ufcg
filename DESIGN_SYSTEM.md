@@ -14,7 +14,7 @@ A marca, a fotografia original da motocicleta e a composição vermelha, preta e
 
 Barlow Condensed 800 compõe títulos de seção e capa. Inter compõe textos, botões e navegação. As fontes são locais e suas licenças OFL acompanham o projeto.
 
-- **Layout.** O conteúdo tem largura máxima de 1280 px. As margens laterais variam de 20 a 88 px, e as seções principais usam 58 a 112 px de respiro vertical.
+- **Layout.** O conteúdo tem largura máxima de 1280 px. As margens laterais variam de 20 a 88 px, e as seções principais usam 54 a 110 px de respiro vertical.
 - **Hierarquia.** Cada página tem um título principal. Títulos de seção usam a fonte condensada. Texto corrido usa 1 rem, e rótulos principais usam pelo menos 0,875 rem. Metadados secundários usam de 0,75 a 0,875 rem.
 - **Botões e links.** A ação principal usa vermelho com texto branco. Ações secundárias usam contorno. Links editoriais têm sublinhado vermelho e foco visível.
 - **Capa.** Fotografia à direita e texto alinhado à esquerda no desktop. No celular, o texto vem primeiro e a área de fotografia é reenquadrada abaixo. Use sobreposição escura para preservar legibilidade e mantenha a legenda curta.
@@ -23,4 +23,12 @@ Barlow Condensed 800 compõe títulos de seção e capa. Inter compõe textos, b
 - **Acessibilidade.** Preserve o foco visível, ordem de leitura, controles nativos e atalhos de teclado. Desative transições e rolagem suave para quem prefere movimento reduzido.
 
 - **Oportunidades.** Use a barra compacta acima da navegação para avisos com prazo. As páginas internas preservam a capa e oferecem seções de leitura para programação, edital e formulários.
-- **Fotografias institucionais.** Na home, a galeria preserva a ampliação por teclado. O banner do Instagram usa fotografias existentes, ocupa uma única área clicável e empilha texto e imagem no celular.
+- **Fotografias institucionais.** A galeria fica na página própria e preserva a ampliação por teclado. O banner do Instagram ocupa uma área clicável e empilha texto e imagens no celular quando há fotos cadastradas.
+
+
+## Fase 3
+
+- Use as variáveis `--radius-button` (12 px), `--radius-small` (14 px), `--radius-card` (18 px), `--radius-photo` (22 px) e `--radius-banner` (26 px). Bordas finas e sombra leve separam os cartões do fundo. A elevação no hover respeita movimento reduzido.
+- Use caixa corrente nos títulos editoriais. Preserve a caixa alta na capa e na chamada da MotoStudent. Mantenha Barlow Condensed nos títulos e Inter nos textos.
+- O acolhimento institucional dá lugar à faixa de parceiros no início da home. A trajetória ocupa cartões conectados, em duas colunas no desktop e em linha vertical no celular. Os subsistemas usam grade de três, duas e uma coluna.
+- Os espaços editoriais são definidos em `src/data/imageSlots.ts`. Os códigos aparecem na revisão com `PUBLIC_IMAGE_MAP=1`. Consulte o [guia de imagens](GUIA_DE_IMAGENS.md) antes de editar enquadramentos e proporções.

@@ -1,6 +1,6 @@
 # LABEM UFCG
 
-Portal do Laboratório de Engenharia da Motocicleta e da equipe Galo de Campina da Universidade Federal de Campina Grande. O projeto usa Astro 5, TypeScript e CSS, com páginas geradas no build e interações executadas no navegador.
+Portal do Laboratório de Engenharia da Motocicleta da Universidade Federal de Campina Grande. O projeto usa Astro 5, TypeScript e CSS, com páginas geradas no build e interações executadas no navegador.
 
 ## Rodar localmente
 
@@ -19,7 +19,7 @@ npm run build
 npm run preview
 ```
 
-O resultado está em `dist/`. Use um servidor HTTP para visualizá-lo. Em pull requests para a `main`, o workflow **Prévia de revisão** gera o ZIP `previa-offline` e capturas de desktop e celular. Baixe o ZIP nos artefatos da execução, extraia todos os arquivos e abra `index.html` no navegador. A prévia não publica no GitHub Pages.
+O resultado está em `dist/`. Use um servidor HTTP para visualizá-lo. Em pull requests para a `main`, o workflow **Prévia de revisão** gera o ZIP `previa-offline` e capturas de desktop e celular com o mapa de imagens. Baixe o ZIP nos artefatos da execução, extraia todos os arquivos e abra `index.html` no navegador. A prévia não publica no GitHub Pages.
 
 ## Estrutura
 
@@ -27,6 +27,7 @@ O resultado está em `dist/`. Use um servidor HTTP para visualizá-lo. Em pull r
 | --- | --- |
 | `src/data/site.ts` | Navegação, banners, dados institucionais, arquivo histórico, projetos, subsistemas e galeria |
 | `src/data/events.ts`, `recruitment.ts` e `notices.ts` | Eventos, processos seletivos e avisos temporários |
+| `src/data/imageSlots.ts` | Reservas de fotografia e enquadramento |
 | `src/pages/` | Páginas e rotas dinâmicas geradas estaticamente a partir das coleções |
 | `src/components/` e `src/layouts/` | Componentes e layouts compartilhados |
 | `src/styles/site.css` | Identidade, tipografia, layouts e regras responsivas |
@@ -34,7 +35,7 @@ O resultado está em `dist/`. Use um servidor HTTP para visualizá-lo. Em pull r
 | `public/images/` | Fotografias WebP e marca do LABEM |
 | `.github/workflows/deploy.yml` | Verificação, build e publicação no GitHub Pages |
 
-Leia [Manual de edição](MANUAL_DE_EDICAO.md), [Manual de publicação](MANUAL_DE_PUBLICACAO.md) e [Sistema de design](DESIGN_SYSTEM.md).
+Leia [Manual de edição](MANUAL_DE_EDICAO.md), [Manual de publicação](MANUAL_DE_PUBLICACAO.md) [Sistema de design](DESIGN_SYSTEM.md) e [Guia de imagens](GUIA_DE_IMAGENS.md).
 
 ## Conteúdo para revisar
 

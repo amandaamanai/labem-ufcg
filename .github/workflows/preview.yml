@@ -26,6 +26,8 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run build
+        env:
+          PUBLIC_IMAGE_MAP: '1'
       - name: Gerar prévia offline
         run: python3 scripts/preview-offline.py dist previa-offline
       - uses: actions/upload-artifact@v4
@@ -61,11 +63,15 @@ jobs:
               const page = await browser.newPage()
               await page.goto(pathToFileURL(resolve('previa-offline/index.html')).href)
               assert.match(await page.title(), /LABEM UFCG/)
-              await page.locator('#galeria [data-gallery-open]').first().click()
+              await page.getByRole('link', { name: 'Galeria', exact: true }).last().click()
+              await page.locator('[data-gallery-open]').first().click()
               await page.getByRole('dialog').waitFor({ state: 'visible' })
               await page.keyboard.press('Escape')
+              await page.goBack()
               await page.locator('#oportunidades a[href="eventos/index.html"]').click()
               await page.getByRole('heading', { name: 'Eventos do LABEM' }).waitFor()
+              await page.goto(pathToFileURL(resolve('previa-offline/engenharia/marketing/index.html')).href)
+              await page.getByRole('heading', { name: 'Gestão', exact: true }).waitFor()
               for (const width of [1440, 390]) {
                 await page.setViewportSize({ width, height: 900 })
                 for (const [route, name] of [['', 'home'], ['eventos/', 'eventos'], ['faca-parte/', 'selecao']]) {
@@ -77,6 +83,11 @@ jobs:
                     await document.fonts.ready
                   })
                   await page.screenshot({ path: `capturas/${name}-${width}.png`, fullPage: true })
+                  if (name === 'home') {
+                    for (const section of ['parceiros', 'historia', 'competicao', 'engenharia', 'instagram']) {
+                      await page.locator('#' + section).screenshot({ path: `capturas/${section}-${width}.png` })
+                    }
+                  }
                 }
               }
             } finally {

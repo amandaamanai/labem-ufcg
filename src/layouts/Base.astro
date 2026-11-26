@@ -6,7 +6,7 @@ import type { Sharing } from '../utils/opportunities'
 import { url } from '../utils/urls'
 const { title, description, image = 'banner.webp', noindex = false, sharing } = Astro.props as { title?: string; description?: string; image?: string; noindex?: boolean; sharing?: Sharing }
 const fullTitle = title ? `${title} | LABEM UFCG` : 'LABEM UFCG | Laboratório de Engenharia da Motocicleta'
-const summary = description ?? 'Laboratório de Engenharia da Motocicleta da UFCG. Engenharia, pesquisa e protótipos de competição da equipe Galo de Campina.'
+const summary = description ?? 'Laboratório de Engenharia da Motocicleta da UFCG. Engenharia, pesquisa, inovação, extensão e formação acadêmica.'
 const canonical = Astro.site && new URL(Astro.url.pathname, Astro.site)
 const shareImage = sharing?.image ?? image
 const imagePath = shareImage.startsWith('https://') ? shareImage : url('images/' + shareImage)
@@ -37,7 +37,7 @@ const current = (href: string) => Astro.url.pathname === url(href)
     <NoticeBar />
     <header class="site-header">
       <div class="wrap header-row">
-        <a class="brand" href={url()} aria-label="LABEM UFCG, início"><img src={url('images/labem.png')} width="109" height="54" alt="LABEM UFCG MotoStudent Team" /></a>
+        <a class="brand" href={url()} aria-label="LABEM UFCG, início"><img src={url('images/labem.png')} width="109" height="54" alt="LABEM UFCG" /></a>
         <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-navigation" hidden>Menu <span aria-hidden="true"></span></button>
         <nav id="site-navigation" aria-label="Navegação principal">
           <ul class="nav-list">
@@ -55,15 +55,15 @@ const current = (href: string) => Astro.url.pathname === url(href)
     <footer class="site-footer">
       <div class="wrap">
         <div class="footer-grid">
-          <div><a href={url()}><img src={url('images/labem.png')} width="128" height="64" alt="LABEM UFCG MotoStudent Team" /></a><p>{institution.name}<br />Universidade Federal de Campina Grande</p></div>
+          <div><a href={url()}><img src={url('images/labem.png')} width="128" height="64" alt="LABEM UFCG" /></a><p class="footer-institution">{institution.name}</p><ul class="footer-affiliation">{institution.affiliation.map(name => <li>{name}</li>)}</ul></div>
           <div><p class="footer-label">Explore</p><ul>{quickLinks.map(link => <li><a href={url(link.href)}>{link.label}</a></li>)}</ul></div>
           <div><p class="footer-label">Fale com o LABEM</p><ul>
             <li><a href={`mailto:${institution.email}`}>{institution.email}</a></li>
             <li><a href={institution.instagram}>Instagram · @labemufcg</a></li>
             <li><a href={institution.linkedin}>LinkedIn</a></li>
-          </ul><p>Campina Grande, Paraíba</p></div>
+          </ul></div>
         </div>
-        <div class="footer-bottom"><span>© <span data-current-year>{new Date().getFullYear()}</span> LABEM UFCG</span><span>Centro de Ciências e Tecnologia · UFCG</span></div>
+        <div class="footer-bottom"><span>© <span data-current-year>{new Date().getFullYear()}</span> LABEM UFCG</span></div>
       </div>
     </footer>
     <script>

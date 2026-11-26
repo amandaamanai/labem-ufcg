@@ -1,14 +1,20 @@
 ---
 import Base from './Base.astro'
+import ImageLabel from '../components/ImageLabel.astro'
+import { bannerSlots } from '../data/imageSlots'
+import { availablePhoto } from '../utils/images'
 import Photo from '../components/Photo.astro'
 import type { Photo as PhotoData } from '../data/site'
 import type { Sharing } from '../utils/opportunities'
 import { url } from '../utils/urls'
-const { title, summary, photo, mobilePhoto, sharing, parent, noindex = false } = Astro.props as { title: string; summary: string; photo?: PhotoData; mobilePhoto?: PhotoData; sharing?: Sharing; parent?: { href: string; label: string }; noindex?: boolean }
+const { title, summary, photo, mobilePhoto, imageGroup, sharing, parent, noindex = false } = Astro.props as { title: string; summary: string; photo?: PhotoData; mobilePhoto?: PhotoData; imageGroup?: 'EVENTO' | 'PROCESSO-SELETIVO'; sharing?: Sharing; parent?: { href: string; label: string }; noindex?: boolean }
+const cover = availablePhoto(photo) ?? availablePhoto(mobilePhoto)
+const mobile = availablePhoto(mobilePhoto)
 ---
-<Base title={title} description={summary} image={photo?.file} noindex={noindex} {sharing}>
-  <section class:list={['inner-hero', { 'inner-with-photo': photo }]}>
-    {photo && <picture>{mobilePhoto && <source media="(max-width: 650px)" srcset={url('images/' + mobilePhoto.file)} />}<Photo photo={photo} eager /></picture>}
+<Base title={title} description={summary} image={cover?.file} noindex={noindex} {sharing}>
+  <section class:list={['inner-hero', { 'inner-with-photo': cover }]}>
+    {cover && <picture>{mobile && <source media="(max-width: 650px)" srcset={url('images/' + mobile.file)} />}<Photo photo={cover} eager /></picture>}
+    {imageGroup && <ImageLabel {...bannerSlots(imageGroup)} />}
     <div class="wrap inner-hero-content">
       <nav class="breadcrumb" aria-label="Localização"><a href={url()}>Início</a>{parent && <><span aria-hidden="true"> / </span><a href={url(parent.href)}>{parent.label}</a></>}</nav>
       <h1>{title}</h1><p>{summary}</p>

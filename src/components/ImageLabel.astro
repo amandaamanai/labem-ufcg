@@ -1,0 +1,8 @@
+---
+import { imageMap } from '../data/imageSlots'
+const { id, mobileId, label } = Astro.props as { id: string; mobileId?: string; label: string }
+---
+{imageMap && <span class:list={['image-map-label', { 'image-map-responsive': mobileId }]} aria-hidden="true">
+  <span>{id} · {label}</span>
+  {mobileId && <span>{mobileId} · {label}</span>}
+</span>}

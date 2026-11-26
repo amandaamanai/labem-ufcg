@@ -13,7 +13,7 @@ const labels = { 'em-breve': 'Inscrições em breve', aberta: 'Inscrições aber
 const canRegister = event?.registration === 'aberta' && !!formLinks(event.form).external
 const calendar = event?.calendar && event.endsAt && timestamp(event.startsAt) < timestamp(event.endsAt)
 ---
-<Inner title={event?.title ?? 'Eventos do LABEM'} summary={event?.subtitle ?? (event ? event.description : 'Acompanhe os próximos encontros, palestras e atividades de extensão do laboratório.')} photo={event?.banner ?? photos.class} mobilePhoto={event?.mobileBanner} sharing={event?.sharing}>
+<Inner imageGroup="EVENTO" title={event?.title ?? 'Eventos do LABEM'} summary={event?.subtitle ?? (event ? event.description : 'Acompanhe os próximos encontros, palestras e atividades de extensão do laboratório.')} photo={event?.banner ?? photos.class} mobilePhoto={event?.mobileBanner} sharing={event?.sharing}>
   {event ? (
     <>
       <section class="content-section event-intro">

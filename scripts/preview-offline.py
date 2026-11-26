@@ -56,6 +56,7 @@ def rewrite_page(html, target):
                   lambda match: "<script type=\"module\">" +
                   (source / match[1].lstrip("/")).read_text(encoding="utf-8") + "</script>", html)
     html = re.sub(r'<link rel="stylesheet" href="(/[^"]+)">', lambda match: inline_css(match[1]), html)
+    html = re.sub(r'(<meta http-equiv="refresh" content="0;url=)([^"]+)', lambda match: match[1] + relative(match[2]), html)
     return re.sub(r'\b(href|src|srcset)="([^"]*)"', rewrite_asset, html)
 
 
